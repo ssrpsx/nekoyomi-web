@@ -1,1 +1,1 @@
-This website for read Anime, Manhwa, Manga
+This website is for reading Manga, Manhwa
