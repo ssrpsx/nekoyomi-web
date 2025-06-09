@@ -1,4 +1,4 @@
-This website is for reading Manga, Manhwa
+## This website is for reading Manga, Manhwa
 
 # React + Vite
 
