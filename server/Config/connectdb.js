@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/user')
+        await mongoose.connect('mongodb://127.0.0.1:27017/users')
         console.log('DB connected')
     }
     catch (err) {
@@ -10,4 +10,4 @@ const connectDB = async () => {
     }
 }
 
-module.exports = connectDB
+export default connectDB;
