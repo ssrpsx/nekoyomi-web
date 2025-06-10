@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const users = mongoose.Schema({
+const userSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
@@ -20,9 +20,17 @@ const users = mongoose.Schema({
             lastReadEpisode: {
                 type: Number,
                 default: 1
+            },
+            like: {
+                type: Boolean,
+                default: false
+            },
+            favorite: {
+                type: Boolean,
+                default: false
             }
         }
     ]
-})
+}, {timestamps: true})
 
-module.exports = mongoose.model('Users', users)
+export default mongoose.model('User', userSchema);
