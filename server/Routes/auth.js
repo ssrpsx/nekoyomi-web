@@ -9,4 +9,16 @@ router.post('/auth', (req, res) => {
     res.send("Hello Auth Endpoint 2")
 })
 
+router.post('/auth', (req, res) => {
+    res.send("Hello Auth Endpoint 2")
+})
+
+router.put('/auth', (req, res) => {
+    res.send("Hello Auth Put Endpoint")
+})
+
+router.delete('/auth', (req, res) => {
+    res.send("Hello Auth Endpoint 2")
+})
+
 export default router
