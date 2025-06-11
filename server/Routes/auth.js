@@ -1,11 +1,10 @@
 import express from 'express'
-import { register, login } from '../Controllers/auth.js'
+import { register, login, list } from '../Controllers/auth.js'
+import { auth } from '../Middleware/auth.js'
 
 const router = express.Router()
 
-router.get('/auth', (req, res) => {
-    res.send("Hello Auth Endpoint 1")
-})
+router.get('/auth', list)
 
 router.post('/register', register)
 
