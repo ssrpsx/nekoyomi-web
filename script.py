@@ -23,7 +23,7 @@ ListName = [
     "The Villain’s Match Is Too Perfect/",
     "Fated to Be Loved by Villains/"
             ]
-# your url .jpg
+# your url .jpg such as https://www.go-manga.com/wp-content/uploads/2024/02/Return-of-the-Frozen-Player-ep
 pre_url = "" 
 input_url = input("ep : ")
 url = pre_url + input_url
