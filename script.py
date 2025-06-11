@@ -23,15 +23,16 @@ ListName = [
     "The Villain’s Match Is Too Perfect/",
     "Fated to Be Loved by Villains/"
             ]
-
-url = input("url : ")
+# your url .jpg
+pre_url = "" 
+input_url = input("ep : ")
+url = pre_url + input_url
 Manga = int(input("schema : "))
 
 base_url = url + "-{index}.jpg"
-input_folder = "episode" + url[-1]
 input = int(input("input end : "))
 
-def download_images(base_url, start_index, end_index, output_folder="src/schema/"+ListName[Manga]+input_folder):
+def download_images(base_url, start_index, end_index, output_folder="src/schema/"+ListName[Manga]+"episode"+input_url):
     os.makedirs(output_folder, exist_ok=True)
     headers = {
         'User-Agent': 'Mozilla/5.0'
@@ -45,8 +46,8 @@ def download_images(base_url, start_index, end_index, output_folder="src/schema/
             file_name = os.path.join(output_folder, f'image_{i}.jpg')
             with open(file_name, 'wb') as f:
                 f.write(response.content)
-            print(f"ดาวน์โหลด: {url}")
+            print(f"Downloaded: {url}")
         except Exception as e:
-            print(f"ไม่สามารถโหลด {url}: {e}")
+            print(f"Cannot Downloaded {url}: {e}")
 
 download_images(base_url, start_index=1, end_index=input)
