@@ -56,7 +56,7 @@ function navbar() {
                   placeholder="ค้นหามังฮวา"
                   className='font-kanit w-[200px] group-hover:w-[350px] transition-all px-3 py-1.5 pl-4 rounded-full bordor bordor-gray-300 bg-white dark:bg-gray-800 text-black dark:text-white duration-400'
                 />
-                <FaSearch className='text-gray-700 dark:text-gray-200 group-hover:text-[#4E71FF] dark:group-hover:text-gray-200 absolute top-[50%] -translate-y-1/2 right-4'/>
+                <FaSearch className='text-gray-700 dark:text-gray-200 group-hover:text-[#4E71FF] dark:group-hover:text-gray-200 absolute top-[50%] -translate-y-1/2 right-4 cursor-pointer'/>
               </div>
               <div>
                   <button
@@ -64,7 +64,7 @@ function navbar() {
                     className='group bg-gradient-to-r from-[#ffbc64] to-[#FCB454] dark:bg-gradient-to-r dark:from-[#dc9e4d] dark:to-[#ffb859] text-white px-4 py-1.5 rounded-full flex items-center grap-3 cursor-pointer'
                   >
                     <RiLoginBoxLine className='text-2xl text-white drop-shadow-sm'/>
-                    <span className='ml-1 group-hover:block hidden'>ล็อกอิน / ลงทะเบียน</span>
+                    <span className='ml-1 group-hover:block hidden font-medium'>ล็อกอิน / ลงทะเบียน</span>
                   </button>
                 </div>
                 <div>
