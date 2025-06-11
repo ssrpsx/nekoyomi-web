@@ -25,13 +25,15 @@ ListName = [
             ]
 
 url = input("url : ")
-Manga = int(input("schema : "))
+Manga = int(input())
 
 base_url = url + "-{index}.jpg"
 input_folder = "episode" + url[-1]
-input = int(input("input end : "))
 
-def download_images(base_url, start_index, end_index, output_folder="src/schema/"+ListName[Manga]+input_folder):
+input1 = int(input("input start : "))
+input2 = int(input("input end : "))
+
+def download_images(base_url, start_index, end_index, output_folder="src/schema"+ListName+[Manga]+input_folder):
     os.makedirs(output_folder, exist_ok=True)
     headers = {
         'User-Agent': 'Mozilla/5.0'
@@ -49,4 +51,4 @@ def download_images(base_url, start_index, end_index, output_folder="src/schema/
         except Exception as e:
             print(f"ไม่สามารถโหลด {url}: {e}")
 
-download_images(base_url, start_index=1, end_index=input)
+download_images(base_url, start_index=input1, end_index=input2)
