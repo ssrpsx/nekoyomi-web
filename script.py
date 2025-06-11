@@ -25,7 +25,7 @@ ListName = [
             ]
 
 url = input("url : ")
-Manga = int(input("schema"))
+Manga = int(input("schema : "))
 
 base_url = url + "-{index}.jpg"
 input_folder = "episode" + url[-1]
