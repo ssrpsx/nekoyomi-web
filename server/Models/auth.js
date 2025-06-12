@@ -15,15 +15,12 @@ const userSchema = mongoose.Schema({
         {
             mangaName: {
                 type: String,
-                required: true
+                required: true,
+                unique: true
             },
             lastReadEpisode: {
                 type: Number,
                 default: 1
-            },
-            like: {
-                type: Boolean,
-                default: false
             },
             favorite: {
                 type: Boolean,
@@ -31,6 +28,6 @@ const userSchema = mongoose.Schema({
             }
         }
     ]
-}, {timestamps: true})
+}, { timestamps: true })
 
 export default mongoose.model('User', userSchema);

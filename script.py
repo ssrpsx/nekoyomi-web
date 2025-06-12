@@ -9,25 +9,16 @@ ListName = [
     "Mercenary Enrollment/",
     "Life of a Magic Academy Mage/",
     "The Infinite Mage/",
-    "Duke Pendragon: Master of the White Dragon Archives/",
+    "Duke Pendragon/",
     "Damn Reincarnation/",
     "Absolute Person in Every Corner/",
-    "The Beginning After the End/",
-    "The Reason Why I Quit Demon King/",
-    "I Obtained a Mythic Item/",
-    "The Count’s Youngest Son is A Player/",
-    "Apocalyptic Chef Awakening/",
-    "Academy’s Genius Swordmaster/",
-    "I am Drako Majstor/",
-    "My Passive Skills Are Invincible/",
-    "The Villain’s Match Is Too Perfect/",
-    "Fated to Be Loved by Villains/"
+    "Solo Leveling/"
             ]
-# your url .jpg such as https://www.go-manga.com/wp-content/uploads/2024/02/Return-of-the-Frozen-Player-ep
-pre_url = "" 
+
+pre_url = "https://www.go-manga.com/wp-content/uploads/2024/02/Solo-Leveling-ep" 
 input_url = input("ep : ")
 url = pre_url + input_url
-Manga = int(input("schema : "))
+Manga = 10
 
 base_url = url + "-{index}.jpg"
 input = int(input("input end : "))
