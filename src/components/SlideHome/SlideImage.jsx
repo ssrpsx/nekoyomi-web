@@ -93,12 +93,12 @@ const settings = {
     pauseOnFocus: true,
     dotsClass: "slick-dots custom-dot-class", // ใช้ custom class
     appendDots: dots => (
-        <div className="relative mt-6">
+        <div className="relative mt-4">
             <ul className="flex justify-center items-center gap-0">{dots}</ul>
         </div>
     ),
     customPaging: i => (
-        <div className="w-3 h-3 bg-black dark:bg-white rounded-full opacity-40 transition duration-300"></div>
+        <div className="w-2 h-2 sm:w-3 sm:h-3 bg-black dark:bg-white rounded-full opacity-40 transition duration-300"></div>
     )
 };
     return (
