@@ -15,7 +15,7 @@ export default function BackgroundDots() {
       <>
         <div
           key={i}
-          className="absolute rounded-[30%] bg-gray-500/20 dark:bg-gray-400/20"
+          className="fixed rounded-[30%] bg-gray-500/20 dark:bg-gray-400/20"
           style={{
             top: `${top}vh`,
             left: `${left}vw`,
@@ -31,7 +31,7 @@ export default function BackgroundDots() {
   });
 
   return (
-    <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+    <div className="top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none fixed">
       {dots}
     </div>
   );

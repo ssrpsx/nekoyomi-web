@@ -102,7 +102,7 @@ const settings = {
     )
 };
     return (
-        <div className='h-screen flex justify-center items-center'>
+        <div className='mt-6 flex justify-center items-center'>
             <div className='w-[1280px] max-w-full px-1'>
                 <Slider {...settings}>
                     {data.map((dataimage) => (

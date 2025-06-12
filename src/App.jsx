@@ -10,9 +10,8 @@ function App() {
     <BrowserRouter>
       <Bg />
       <Navbar />
-      <div className='pt-24 w-full'></div>
       <Routes>
-        <Route path='/Home' element={<Home />}/>
+        <Route path='/' element={<Home />}/>
         <Route path='/Auth' element={<Auth />}/>
       </Routes>
     </BrowserRouter>

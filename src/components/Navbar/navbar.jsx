@@ -9,7 +9,7 @@ const Menu = [
   {
     id: 1,
     name: "หน้าหลัก",
-    link: "/#"
+    link: "/"
   },
   {
     id: 2,
@@ -50,7 +50,7 @@ function navbar() {
         <div className='bg-[#4E71FF] dark:bg-[#5313c4] px-7 py-5'>
           <div className="container mx-auto flex justify-between items-center">
             <div>
-              <a href="Home" className='flex gap-3 font-bold text-3xl items-center'>
+              <a href="/" className='flex gap-3 font-bold text-3xl items-center'>
                 <img src={Logo} alt="Logo" className='w-8.5' />
                 NekoYomi
               </a>
