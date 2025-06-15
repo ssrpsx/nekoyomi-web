@@ -12,4 +12,4 @@ const mangaSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-export default mongoose.model('ViewCount', mangaSchema)
+export default mongoose.model('Manga', mangaSchema)

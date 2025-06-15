@@ -1,9 +1,9 @@
 import express from 'express'
-import { register, login, list } from '../Controllers/viewcount.js'
-import { auth } from '../Middleware/viewcount.js'
+import {show, list} from '../Controllers/viewcount.js'
 
 const router = express.Router()
 
-router.get('/anime/:id', viewAnime)
+router.post('/:name', show)
+router.get('/', list)
 
 export default router
