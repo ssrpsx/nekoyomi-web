@@ -11,6 +11,20 @@
   transform: scale(1.2);
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+/* IE, Edge Legacy */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+}
+
 @keyframes animate1 {
   0% {
     transform: scale(0) translateY(0) rotate(0deg);

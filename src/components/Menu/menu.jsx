@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { IoEyeSharp } from "react-icons/io5";
+import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 
 function menu() {
   const [data, setData] = useState([])
+  const [favorite, setfavorite] = useState(false)
 
 
   const loadData = async () => {
@@ -22,54 +24,102 @@ function menu() {
   console.log(data)
 
   return (
-    <div className='p-5'>
-      <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
-        <h1 className='font-kanit text-white text-xl font-semibold text-center'>ยอดฮิตติดอันดับ TOP 5</h1>
-      </div>
-      <div>
-        <div className='relative w-full max-w-screen-lg mx-auto'>
-          <ul className='p-5 flex flex-nowrap overflow-x-auto scrollbar-hide gap-4'>
-              {data.sort((a, b) => b.views - a.views)
-                .slice(0, 5)
-                .map((item, index) => (
-                  <li id={index} className='flex bg-gray-700 rounded-xl overflow-hidden min-w-[375px] h-[250px]'>
-                    <img
-                      src={`/schema/BookCover/${item.title}.jpg`}
-                      alt=""
-                      className='w-[175px] h-full object-cover'
-                    />
-                    <div className='px-6 py-4 flex flex-col justify-between h-full'>
-                      <div>
-                        <h1 className='text-[#4E71FF] font-bold text-lg'>{index+1}. {item.title}</h1>
-                        <div className='flex gap-2 text-gray-200 mb-2'>
-                          <h2>หมวดหมู่ </h2>
-                          <span>Something.</span>
-                        </div>
-                        <span className='text-sm text-gray-300/80'>
-                          {
-                            [
-                              'เด็กหนุ่มผู้หลงทางถูกดึงเข้าสู่โลกที่เต็มไปด้วยเวทมนตร์และความลับที่เขาไม่เคยรู้จักมาก่อน',
-                              'การต่อสู้ของเด็กสาวที่ต้องลุกขึ้นยืนเพื่อปกป้องสิ่งสำคัญเพียงหนึ่งเดียวที่เหลืออยู่',
-                              'ในวันที่เมืองเริ่มล่มสลาย เขาคือความหวังสุดท้ายที่จะเปลี่ยนชะตาของทุกคน',
-                              'เมื่อคำสัญญาในอดีตย้อนกลับมาทำร้าย ปัจจุบันจึงกลายเป็นสนามรบของหัวใจ',
-                              'เบื้องหลังรอยยิ้มคือบาดแผลที่ต้องปกปิด ในโลกที่ใครๆ ก็ใส่หน้ากาก'
-                            ][index % 5]
-                          }
-                          (Random-text)
-                        </span>
-                      </div>
-                      <div className='flex items-center gap-2 text-sm'>
-                        <IoEyeSharp className='text-gray-300' />
-                        <h2 className='text-gray-300'>{item.views} views</h2>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-          </ul>
+    <div className='relative'>
+      <div className='flex flex-col md:flex-row gap-4 justify-center'>
+
+        <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
+          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
+            <h1 className='font-kanit text-white text-xl font-semibold text-center'>
+              มังฮวา & มังงะ อัพเดทใหม่ล่าสุด
+            </h1>
+          </div>
+
+          <div>
+            <ul>
+              {
+                data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+                  .map((manga, index) => (
+                    <li key={index} className="text-white p-2">
+                      <a href={`/book/${manga.id}`} className="hover:underline text-blue-400">
+                        <h1>{manga.title}</h1>
+                      </a>
+                    </li>
+                  ))
+              }
+            </ul>
+
+          </div>
         </div>
-        <div>
-          <ul>
-          </ul>
+
+        <div className="order-1 md:order-2 w-full sm:w-[25%] sm:pl-0 p-5">
+          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg sm:rounded-bl-none sm:rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
+            <h1 className='font-kanit text-white text-xl font-semibold text-center'>
+              ยอดฮิตติดอันดับ TOP 5
+            </h1>
+          </div>
+
+          <div>
+            <div className='relative w-full mx-auto'>
+              <ul className='p-5 flex flex-nowrap sm:block sm:bg-gray-700 sm:rounded-bl-lg sm:rounded-br-lg overflow-x-auto scroll-smooth scrollbar-hide gap-4 touch-pan-x'>
+                {data.sort((a, b) => b.views - a.views)
+                  .slice(0, 5)
+                  .map((item, index) => (
+                    <li
+                      key={index}
+                      className='flex bg-gray-800 rounded-xl overflow-hidden min-w-[375px] h-[250px] sm:mb-4 cursor-pointer hover:bg-gray-900 transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
+                    >
+                      <a href={`/book/${item.id}`} className="flex w-full h-full">
+                        <img
+                          src={`/schema/BookCover/${item.title}.jpg`}
+                          alt=""
+                          className='w-[175px] h-full object-cover'
+                        />
+                        <div className='px-6 py-4 flex flex-col justify-between h-full'>
+                          <div>
+                            <h1 className='text-[#4E71FF] font-bold text-lg leading-tight'>
+                              {index + 1}. {item.title}
+                            </h1>
+                            <div className='flex gap-2 text-gray-200 my-1'>
+                              <h2>หมวดหมู่ </h2>
+                              <span>Something.</span>
+                            </div>
+                            <span className='text-sm text-gray-300/80'>
+                              {
+                                [
+                                  'เด็กหนุ่มผู้หลงทางถูกดึงเข้าสู่โลกที่เต็มไปด้วยเวทมนตร์และความลับที่เขาไม่เคยรู้จักมาก่อน',
+                                  'การต่อสู้ของเด็กสาวที่ต้องลุกขึ้นยืนเพื่อปกป้องสิ่งสำคัญเพียงหนึ่งเดียวที่เหลืออยู่',
+                                  'ในวันที่เมืองเริ่มล่มสลาย เขาคือความหวังสุดท้ายที่จะเปลี่ยนชะตาของทุกคน',
+                                  'เมื่อคำสัญญาในอดีตย้อนกลับมาทำร้าย ปัจจุบันจึงกลายเป็นสนามรบของหัวใจ',
+                                  'เบื้องหลังรอยยิ้มคือบาดแผลที่ต้องปกปิด ในโลกที่ใครๆ ก็ใส่หน้ากาก'
+                                ][index % 5]
+                              }
+                              (Random-text)
+                            </span>
+                          </div>
+                          <div className='flex justify-between items-center'>
+                            <div className='flex items-center gap-2 text-sm'>
+                              <IoEyeSharp className='text-gray-200' />
+                              <h2 className='text-gray-200'>{item.views} views</h2>
+                            </div>
+                            <div className='cursor-pointer p-1'>
+                              {
+                                favorite ?
+                                  <MdFavorite className='text-red-600' onClick={() => setfavorite(!favorite)} />
+                                  : <MdFavoriteBorder className='text-white' onClick={() => setfavorite(!favorite)} />
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+            <div>
+              <ul>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
