@@ -1,9 +1,9 @@
 import express from 'express'
-import {added, list} from '../Controllers/viewcount.js'
+import {ft_added, list} from '../Controllers/viewcount.js'
 
 const router = express.Router()
 
-router.post('/:name', added)
+router.post('/', ft_added)
 router.get('/', list)
 
 export default router

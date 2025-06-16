@@ -52,12 +52,12 @@ function menu() {
                         />
                         <div className='h-[90px] flex flex-col justify-between'>
                           <h1
-                            className='text-white group-hover:text-[#4E71FF] font-semibold text-lg text-center p-1 line-clamp-2'>
+                            className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
                             {manga.title.replaceAll('-', ' ')}
                           </h1>
                           <span
-                            className='text-sm text-center text-gray-200'>
-                            หมวดหมู่ : Something.
+                            className='text-sm text-gray-200 line-clamp-1'>
+                            หมวดหมู่ : {manga.category}
                           </span>
                         </div>
                         <div className='flex justify-between items-center p-1 pl-2'>
