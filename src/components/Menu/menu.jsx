@@ -28,50 +28,26 @@ function menu() {
       <div className='flex flex-col md:flex-row gap-4 justify-center'>
 
         <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
-          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
+          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
             <h1 className='font-kanit text-white text-xl font-semibold text-center'>
               มังฮวา & มังงะ อัพเดทใหม่ล่าสุด
             </h1>
           </div>
 
-          <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
-            <ul className='grid grid-cols-2'>
+          <div>
+            <ul>
               {
                 data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-                  .slice(0, 10)
                   .map((manga, index) => (
-                    <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
-                      <a
-                        href={`/book/${manga.id}`}
-                        className=""
-                      >
-                        <img
-                          src={`/schema/BookCover/${manga.title}.jpg`}
-                          alt=""
-                          className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
-                        />
-                        <div className='h-[90px] flex flex-col justify-between'>
-                          <h1
-                            className='text-white group-hover:text-[#4E71FF] font-semibold text-lg text-center p-1 line-clamp-2'>
-                            {manga.title.replaceAll('-', ' ')}
-                          </h1>
-                          <span
-                            className='text-sm text-center text-gray-200'>
-                            หมวดหมู่ : Something.
-                          </span>
-                        </div>
-                        <div className='flex justify-between items-center p-1 pl-2'>
-                          <div className='flex items-center gap-2 text-sm'>
-                            <IoEyeSharp className='text-gray-200' />
-                            <h2 className='text-gray-200'>{manga.views} views</h2>
-                          </div>
-                        </div>
+                    <li key={index} className="text-white p-2">
+                      <a href={`/book/${manga.id}`} className="hover:underline text-blue-400">
+                        <h1>{manga.title}</h1>
                       </a>
                     </li>
                   ))
               }
             </ul>
-            <button className='text-center w-full cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md'>แสดงเพิ่มเติม</button>
+
           </div>
         </div>
 
@@ -92,7 +68,7 @@ function menu() {
                       key={index}
                       className='flex bg-gray-800 rounded-xl overflow-hidden min-w-[375px] h-[250px] sm:mb-4 cursor-pointer hover:bg-gray-900 transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
                     >
-                      <a href={`/book/${item.id}`} className="flex w-full h-full z-1">
+                      <a href={`/book/${item.id}`} className="flex w-full h-full">
                         <img
                           src={`/schema/BookCover/${item.title}.jpg`}
                           alt=""
@@ -101,7 +77,7 @@ function menu() {
                         <div className='px-6 py-4 flex flex-col justify-between h-full'>
                           <div>
                             <h1 className='text-[#4E71FF] font-bold text-lg leading-tight'>
-                              {index + 1}. {item.title.replaceAll('-', ' ')}
+                              {index + 1}. {item.title}
                             </h1>
                             <div className='flex gap-2 text-gray-200 my-1'>
                               <h2>หมวดหมู่ </h2>
@@ -125,16 +101,11 @@ function menu() {
                               <IoEyeSharp className='text-gray-200' />
                               <h2 className='text-gray-200'>{item.views} views</h2>
                             </div>
-                            <div className='cursor-pointer p-3 z-2'
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setfavorite(!favorite);
-                              }}>
+                            <div className='cursor-pointer p-1'>
                               {
                                 favorite ?
-                                  <MdFavorite className='text-red-600' />
-                                  : <MdFavoriteBorder className='text-white' />
+                                  <MdFavorite className='text-red-600' onClick={() => setfavorite(!favorite)} />
+                                  : <MdFavoriteBorder className='text-white' onClick={() => setfavorite(!favorite)} />
                               }
                             </div>
                           </div>

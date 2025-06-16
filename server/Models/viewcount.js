@@ -6,10 +6,6 @@ const mangaSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    category: {
-        type: String,
-        require: true
-    },
     views: {
         type: Number,
         default: 0
