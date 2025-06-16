@@ -1,6 +1,6 @@
 import anime from '../Models/viewcount.js'
 
-export const show = async (req, res) => {
+export const added = async (req, res) => {
     try {
         const { title } = req.body
 
