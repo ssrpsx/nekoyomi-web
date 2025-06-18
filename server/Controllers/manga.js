@@ -43,6 +43,28 @@ export const ft_added = async (req, res) => {
     }
 }
 
+export const menu = async (req, res) => {
+    try {
+        const show = await anime.find({}).exec()
+        res.send(show)
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send("Server Error")
+    }
+}
+
+export const menu_list = async (req, res) => {
+    try {
+        const show = await anime.find({}).exec()
+        res.send(show)
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send("Server Error")
+    }
+}
+
 export const list = async (req, res) => {
     try {
         const show = await anime.find({}).exec()
@@ -52,4 +74,8 @@ export const list = async (req, res) => {
         console.log(err)
         res.status(500).send("Server Error")
     }
+}
+
+export const episode = async (req, res) => {
+    return 0;
 }

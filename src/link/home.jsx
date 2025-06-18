@@ -1,5 +1,5 @@
 import React from 'react'
-import SlideImage from '../components/SlideHome/SlideImage'
+import SlideImage from '../components/SlideHome/slideImage'
 import Menu from '../components/Menu/menu'
 
 function home() {

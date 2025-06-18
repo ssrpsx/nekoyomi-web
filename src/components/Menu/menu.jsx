@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { IoEyeSharp } from "react-icons/io5";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 function menu() {
   const [data, setData] = useState([])
@@ -10,7 +11,7 @@ function menu() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/anime')
+      const res = await axios.get('http://localhost:5000/anime/menu')
       setData(res.data)
     }
     catch (err) {
@@ -83,7 +84,14 @@ function menu() {
                 ))
               }
             </ul>
-            <button className='text-center w-full cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md'>แสดงเพิ่มเติม</button>
+            <div className="flex justify-center">
+              <Link
+                to="/menu/home"
+                className="w-1/3 text-center cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md"
+              >
+                แสดงเพิ่มเติม
+              </Link>
+            </div>
           </div>
         </div>
 

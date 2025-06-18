@@ -6,7 +6,7 @@ import Logo from "../../assets/Logo.png"
 import { FaSearch } from "react-icons/fa";
 import { RiLoginBoxLine, RiMenuFill } from "react-icons/ri";
 
-import DarkModeToggle from './DarkMode';
+import DarkModeToggle from './dark';
 
 
 const Menu = [
