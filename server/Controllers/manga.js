@@ -1,8 +1,8 @@
-import anime from '../Models/viewcount.js'
+import anime from '../Models/manga.js'
 
 export const ft_added = async (req, res) => {
     try {
-        const { title } = req.body
+        let { title } = req.body
         
         if (!title) {
             return res.status(400).send("Missing title");
@@ -23,7 +23,9 @@ export const ft_added = async (req, res) => {
         }
         
         const views = () => Math.floor(Math.random() * 100);
+        title = title.replaceAll(' ', '-')
 
+        console.log(title)
         let payload = new anime({
             title: title,
             category: getRandomCategories(),

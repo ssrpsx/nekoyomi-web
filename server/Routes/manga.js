@@ -1,5 +1,5 @@
 import express from 'express'
-import {ft_added, list} from '../Controllers/viewcount.js'
+import {ft_added, list} from '../Controllers/manga.js'
 
 const router = express.Router()
 

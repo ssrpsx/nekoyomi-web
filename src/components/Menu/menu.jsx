@@ -6,16 +6,30 @@ import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
 function menu() {
   const [data, setData] = useState([])
   const [favorite, setfavorite] = useState(false)
-
+  const [displayData, setDisplayData] = useState([]);
 
   const loadData = async () => {
     try {
       const res = await axios.get('http://localhost:5000/anime')
       setData(res.data)
-    } catch (err) {
+    }
+    catch (err) {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    const updateDisplayData = () => {
+      const isSmallScreen = window.innerWidth > 640;
+      const sorted = [...data].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      const sliced = sorted.slice(0, isSmallScreen ? 25 : 10);
+      setDisplayData(sliced);
+    };
+
+    updateDisplayData();
+    window.addEventListener('resize', updateDisplayData);
+    return () => window.removeEventListener('resize', updateDisplayData);
+  }, [data]);
 
   useEffect(() => {
     loadData()
@@ -35,40 +49,38 @@ function menu() {
           </div>
 
           <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
-            <ul className='grid grid-cols-2'>
+            <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
               {
-                data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-                  .slice(0, 10)
-                  .map((manga, index) => (
-                    <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
-                      <a
-                        href={`/book/${manga.id}`}
-                        className=""
-                      >
-                        <img
-                          src={`/schema/BookCover/${manga.title}.jpg`}
-                          alt=""
-                          className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
-                        />
-                        <div className='h-[90px] flex flex-col justify-between'>
-                          <h1
-                            className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
-                            {manga.title.replaceAll('-', ' ')}
-                          </h1>
-                          <span
-                            className='text-sm text-gray-200 line-clamp-1'>
-                            หมวดหมู่ : {manga.category}
-                          </span>
+                displayData.map((manga, index) => (
+                  <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
+                    <a
+                      href={`/book/${manga.id}`}
+                      className=""
+                    >
+                      <img
+                        src={`/schema/BookCover/${manga.title}.jpg`}
+                        alt=""
+                        className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
+                      />
+                      <div className='h-[90px] flex flex-col justify-between'>
+                        <h1
+                          className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
+                          {manga.title.replaceAll('-', ' ')}
+                        </h1>
+                        <span
+                          className='text-sm text-gray-200 line-clamp-1'>
+                          หมวดหมู่ : {manga.category}
+                        </span>
+                      </div>
+                      <div className='flex justify-between items-center p-1 pl-2'>
+                        <div className='flex items-center gap-2 text-sm'>
+                          <IoEyeSharp className='text-gray-200' />
+                          <h2 className='text-gray-200'>{manga.views} views</h2>
                         </div>
-                        <div className='flex justify-between items-center p-1 pl-2'>
-                          <div className='flex items-center gap-2 text-sm'>
-                            <IoEyeSharp className='text-gray-200' />
-                            <h2 className='text-gray-200'>{manga.views} views</h2>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                  ))
+                      </div>
+                    </a>
+                  </li>
+                ))
               }
             </ul>
             <button className='text-center w-full cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md'>แสดงเพิ่มเติม</button>

@@ -2,7 +2,7 @@ import express from 'express'
 import { readdirSync } from 'fs';
 import connectDB from './server/Config/connectdb.js'
 import auth from './server/Routes/auth.js'
-import view from './server/Routes/viewcount.js'
+import view from './server/Routes/manga.js'
 
 import morgan from 'morgan';
 import cors from 'cors';
