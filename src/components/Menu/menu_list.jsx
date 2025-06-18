@@ -1,8 +1,8 @@
 import React from 'react'
 
-function menulist() {
+function menu_list() {
   return (
-    <div>menu-list</div>
+    <div>menu_list</div>
   )
 }
 

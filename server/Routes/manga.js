@@ -4,9 +4,9 @@ import {ft_added, menu, menu_list, list, episode} from '../Controllers/manga.js'
 const router = express.Router()
 
 router.post('/', ft_added)
-router.get('/menu', menu)
-router.get('/menu/:pageNumber', menu_list)
-router.get('/page/home', list)
-router.get('/page/:pageNumber', episode)
+router.get('/menu', menu) // รับเดต้าเมนูทั้งหมด
+router.get('/menu/:pageNumber', menu_list) // หน้าเมนู ตอนกด More
+router.get('/page/home', list) // หน้าแรก ที่กดเข้าเรื่องใดไป ละก็เลือกตอน
+router.get('/page/:pageNumber', episode) // หน้าเลือกตอน ep1 โหลด image-all.jpg
 
 export default router

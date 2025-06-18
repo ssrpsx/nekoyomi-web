@@ -55,7 +55,7 @@ function menu() {
                 displayData.map((manga, index) => (
                   <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
                     <a
-                      href={`/book/${manga.id}`}
+                      href={`/anime/${manga.title}/page/home`}
                       className=""
                     >
                       <img
@@ -86,7 +86,7 @@ function menu() {
             </ul>
             <div className="flex justify-center">
               <Link
-                to="/menu/home"
+                to="/menu/page/1"
                 className="w-1/3 text-center cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md"
               >
                 แสดงเพิ่มเติม
@@ -112,7 +112,7 @@ function menu() {
                       key={index}
                       className='flex bg-gray-800 rounded-xl overflow-hidden min-w-[375px] h-[250px] sm:mb-4 cursor-pointer hover:bg-gray-900 transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
                     >
-                      <a href={`/book/${item.id}`} className="flex w-full h-full z-1">
+                      <a href={`/anime/${item.title}/page/home`} className="flex w-full h-full z-1">
                         <img
                           src={`/schema/BookCover/${item.title}.jpg`}
                           alt=""

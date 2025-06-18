@@ -67,8 +67,7 @@ export const menu_list = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        const show = await anime.find({}).exec()
-        res.send(show)
+        console.log("list success")
     }
     catch (err) {
         console.log(err)
@@ -77,5 +76,5 @@ export const list = async (req, res) => {
 }
 
 export const episode = async (req, res) => {
-    return 0;
+    console.log("episode success")
 }
