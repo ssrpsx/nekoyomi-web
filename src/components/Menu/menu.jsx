@@ -22,7 +22,7 @@ function menu() {
   useEffect(() => {
     const updateDisplayData = () => {
       const isSmallScreen = window.innerWidth > 640;
-      const sorted = [...data].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+      const sorted = [...data].sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
       const sliced = sorted.slice(0, isSmallScreen ? 25 : 10);
       setDisplayData(sliced);
     };
@@ -35,8 +35,6 @@ function menu() {
   useEffect(() => {
     loadData()
   }, [])
-
-  console.log(data)
 
   return (
     <div className='relative'>
