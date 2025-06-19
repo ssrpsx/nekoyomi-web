@@ -18,7 +18,7 @@ function App() {
         <Route path='/Auth' element={<Auth />}/>
         <Route path='/forgot' element={<Forgot />}/>
         <Route path='/anime/:title/page/home' element={<Menu />}/>
-        <Route path='/menu/page/:pageNumber' element={<Menu_list />}/>
+        <Route path='/menu/:pageNumber' element={<Menu_list />}/>
       </Routes>
     </BrowserRouter>
   )

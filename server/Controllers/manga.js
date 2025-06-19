@@ -3,7 +3,7 @@ import anime from '../Models/manga.js'
 export const ft_added = async (req, res) => {
     try {
         let { title } = req.body
-        
+
         if (!title) {
             return res.status(400).send("Missing title");
         }
@@ -21,7 +21,7 @@ export const ft_added = async (req, res) => {
             const selected = shuffled.slice(0, 3);
             return selected.join(', ');
         }
-        
+
         const views = () => Math.floor(Math.random() * 100);
         title = title.replaceAll(' ', '-')
 
@@ -56,14 +56,25 @@ export const menu = async (req, res) => {
 
 export const menu_list = async (req, res) => {
     try {
-        const show = await anime.find({}).exec()
-        res.send(show)
+        const page = Number(req.params.pageNumber) || 1
+        const limit = 30
+        const skip = (page - 1) * limit
+
+        const shows = await anime.find().skip(skip).limit(limit).exec()
+        const total = await anime.countDocuments()
+
+        const lastTotalPage = Math.ceil(total / limit)
+        res.status(200).send({
+            shows,
+            lastTotalPage
+        })
     }
     catch (err) {
         console.log(err)
         res.status(500).send("Server Error")
     }
 }
+
 
 export const list = async (req, res) => {
     try {

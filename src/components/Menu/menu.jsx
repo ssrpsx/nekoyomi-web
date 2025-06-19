@@ -21,9 +21,8 @@ function menu() {
 
   useEffect(() => {
     const updateDisplayData = () => {
-      const isSmallScreen = window.innerWidth > 640;
       const sorted = [...data].sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-      const sliced = sorted.slice(0, isSmallScreen ? 25 : 10);
+      const sliced = sorted.slice(0, 25);
       setDisplayData(sliced);
     };
 
@@ -42,7 +41,7 @@ function menu() {
 
         <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
           <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
-            <h1 className='font-kanit text-white text-xl font-semibold text-center'>
+            <h1 className='font-kanit text-white text-xl font-medium text-center'>
               มังฮวา & มังงะ อัพเดทใหม่ล่าสุด
             </h1>
           </div>
@@ -84,8 +83,8 @@ function menu() {
             </ul>
             <div className="flex justify-center">
               <Link
-                to="/menu/page/1"
-                className="w-1/3 text-center cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md"
+                to="/menu/1"
+                className="w-4/8 sm:w-1/3 text-center cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md"
               >
                 แสดงเพิ่มเติม
               </Link>
@@ -95,7 +94,7 @@ function menu() {
 
         <div className="order-1 md:order-2 w-full sm:w-[25%] sm:pl-0 p-5">
           <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg sm:rounded-bl-none sm:rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
-            <h1 className='font-kanit text-white text-xl font-semibold text-center'>
+            <h1 className='font-kanit text-white text-xl font-medium text-center'>
               ยอดฮิตติดอันดับ TOP 5
             </h1>
           </div>

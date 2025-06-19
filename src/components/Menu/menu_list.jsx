@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { IoEyeSharp } from "react-icons/io5";
+import { useParams, useNavigate } from 'react-router-dom'
 
 function menu_list() {
   const [data, setData] = useState([])
+  const [lastPage, setlastPage] = useState(1)
   const [displayData, setDisplayData] = useState([]);
+  const { pageNumber } = useParams()
+  const page = parseInt(pageNumber || '1')
+  const navigate = useNavigate()
 
   const loadData = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/anime/menu')
-      setData(res.data)
+      const res = await axios.get(`http://localhost:5000/anime/menu/${page}`)
+      setData(res.data.shows)
+      setlastPage(res.data.lastTotalPage)
+      
+      console.log(res.data.shows)
     }
     catch (err) {
       console.log(err)
     }
   }
 
+  const goToPage = (newPage) => {
+    if (newPage >= 1) {
+      navigate(`/menu/${newPage}`)
+      window.scrollTo(0, 0)
+    }
+  }
+
+
   useEffect(() => {
     const updateDisplayData = () => {
-      const isSmallScreen = window.innerWidth > 640;
       const sorted = [...data].sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-      const sliced = sorted.slice(0, isSmallScreen ? 25 : 10);
+      const sliced = sorted.slice(0, 30);
       setDisplayData(sliced);
     };
 
@@ -31,45 +46,75 @@ function menu_list() {
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [page])
 
   return (
-    <div className='m-auto'>
-      <div className='m-auto flex flex-col md:flex-row w-[50%] gap-4 justify-center my-6 p-4 pt-8 bg-gray-800 rounded-bl-lg rounded-br-lg'>
-        <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
-          {
-            displayData.map((manga, index) => (
-              <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
-                <a
-                  href={`/anime/${manga.title}/page/home`}
-                  className=""
-                >
-                  <img
-                    src={`/schema/BookCover/${manga.title}.jpg`}
-                    alt=""
-                    className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
-                  />
-                  <div className='h-[90px] flex flex-col justify-between'>
-                    <h1
-                      className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
-                      {manga.title.replaceAll('-', ' ')}
-                    </h1>
-                    <span
-                      className='text-sm text-gray-200 line-clamp-1'>
-                      หมวดหมู่ : {manga.category}
-                    </span>
-                  </div>
-                  <div className='flex justify-between items-center p-1 pl-2'>
-                    <div className='flex items-center gap-2 text-sm'>
-                      <IoEyeSharp className='text-gray-200' />
-                      <h2 className='text-gray-200'>{manga.views} views</h2>
+    <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
+      <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
+        <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
+          <h1 className='font-kanit text-white text-xl font-medium text-center'>
+            มังฮวา & มังงะ อัพเดทใหม่ล่าสุด {pageNumber}
+          </h1>
+        </div>
+        <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
+          <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
+            {
+              displayData.map((manga, index) => (
+                <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
+                  <a
+                    href={`/anime/${manga.title}/page/home`}
+                    className=""
+                  >
+                    <img
+                      src={`/schema/BookCover/${manga.title}.jpg`}
+                      alt=""
+                      className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
+                    />
+                    <div className='h-[90px] flex flex-col justify-between'>
+                      <h1
+                        className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
+                        {manga.title.replaceAll('-', ' ')}
+                      </h1>
+                      <span
+                        className='text-sm text-gray-200 line-clamp-1'>
+                        หมวดหมู่ : {manga.category}
+                      </span>
                     </div>
-                  </div>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+                    <div className='flex justify-between items-center p-1 pl-2'>
+                      <div className='flex items-center gap-2 text-sm'>
+                        <IoEyeSharp className='text-gray-200' />
+                        <h2 className='text-gray-200'>{manga.views} views</h2>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <div className='w-full flex justify-center gap-3'>
+            <button
+              onClick={() => goToPage(page - 1)}
+              disabled={page <= 1}
+              className={`w-1/3 sm:w-1/6 text-center p-1.5 mb-2 font-medium rounded-md
+              ${page <= 1
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-500 text-white cursor-pointer'}`}
+            >
+              ก่อนหน้านี้
+            </button>
+
+            <button
+              onClick={() => goToPage(page + 1)}
+              disabled={page == lastPage}
+              className={`w-1/3 sm:w-1/6 text-center p-1.5 mb-2 font-medium rounded-md
+              ${page == lastPage
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-blue-500 text-white cursor-pointer'}`}
+            >
+              หน้าถัดไป
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
