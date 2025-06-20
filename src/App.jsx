@@ -6,6 +6,7 @@ import Auth from './components/auth/auth'
 import Forgot from './link/forgot'
 import Menu from '../src/components/Menu/menu_home'
 import Menu_list from '../src/components/Menu/menu_list'
+import About from './components/Navbar/about'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/anime/:title/page/home' element={<Menu />}/>
         <Route path='/menu/:pageNumber' element={<Menu_list />}/>
       </Routes>
+      <About />
     </BrowserRouter>
   )
 }
