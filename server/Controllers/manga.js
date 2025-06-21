@@ -1,4 +1,10 @@
 import anime from '../Models/manga.js'
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const ft_added = async (req, res) => {
     try {
@@ -78,13 +84,42 @@ export const menu_list = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        console.log("list success")
+        const name = req.params.title;
+        const data = await anime.findOne({ title: name });
+
+        if (!data) return res.status(404).json({ error: "Not found" });
+
+        const ROOT_PATH = path.resolve(__dirname, '..', '..');
+        const BASE_PATH = path.join(ROOT_PATH, 'public', 'schema', name);
+
+        try {
+            await fs.access(BASE_PATH);
+        }
+        catch {
+            return res.status(404).json({ error: "Folder not found" });
+        }
+
+        const files = await fs.readdir(BASE_PATH, { withFileTypes: true });
+        const folders = files
+            .filter(f => f.isDirectory())
+            .map(f => f.name)
+            .sort((a, b) => {
+                const numA = parseInt(a.replace('episode', ''), 10);
+                const numB = parseInt(b.replace('episode', ''), 10);
+                return numA - numB;
+            });
+
+        res.status(200).json({
+            data,
+            folders
+        });
     }
     catch (err) {
-        console.log(err)
-        res.status(500).send("Server Error")
+        console.error(err);
+        res.status(500).json({ error: "Server Error" });
     }
-}
+};
+
 
 export const episode = async (req, res) => {
     console.log("episode success")
