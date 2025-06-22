@@ -14,7 +14,7 @@ function menu_home() {
 
     const loadData = async () => {
         try {
-            const res = await axios.get(`http://mangabyphai.ddns.net:4/anime/${title}/page/home`)
+            const res = await axios.get(import.meta.env.VITE_API + `/anime/${title}/page/home`)
             setData(res.data.data)
             setEpisode(res.data.folders)
         }

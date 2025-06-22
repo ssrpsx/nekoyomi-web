@@ -11,7 +11,8 @@ function menu() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get('http://mangabyphai.ddns.net:4/anime/menu')
+      const res = await axios.get(import.meta.env.VITE_API + '/anime/menu')
+      console.log(import.meta.env.VITE_API)
       setData(res.data)
     }
     catch (err) {

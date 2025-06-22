@@ -13,7 +13,7 @@ function menu_list() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get(`http://mangabyphai.ddns.net:4/anime/menu/${page}`)
+      const res = await axios.get(import.meta.env.VITE_API`/anime/menu/${page}`)
       setData(res.data.shows)
       setlastPage(res.data.lastTotalPage)
 

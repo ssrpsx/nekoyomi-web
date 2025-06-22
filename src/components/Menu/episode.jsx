@@ -14,7 +14,7 @@ function Episode() {
 
     const loadData = async () => {
         try {
-            const res = await axios.get(`http://mangabyphai.ddns.net:4/anime/${title}/page/${episode}`)
+            const res = await axios.get(import.meta.env.VITE_API + `/anime/${title}/page/${episode}`)
             setisEpisode(res.data.episodes)
             setData(res.data.images)
 
