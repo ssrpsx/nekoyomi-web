@@ -87,7 +87,7 @@ export const list = async (req, res) => {
         const name = req.params.title;
         const data = await anime.findOne({ title: name });
 
-        if (!data) return res.status(404).json({ error: "Not found" });
+        if (!data) return res.status(404).send("Not Found")
 
         const ROOT_PATH = path.resolve(__dirname, '..', '..');
         const BASE_PATH = path.join(ROOT_PATH, 'public', 'schema', name);
@@ -96,7 +96,7 @@ export const list = async (req, res) => {
             await fs.access(BASE_PATH);
         }
         catch {
-            return res.status(404).json({ error: "Folder not found" });
+            return res.status(404).send("Folder not found")
         }
 
         const files = await fs.readdir(BASE_PATH, { withFileTypes: true });
@@ -116,11 +116,57 @@ export const list = async (req, res) => {
     }
     catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Server Error" });
+        res.status(500).send("Server Error")
     }
 };
 
 
 export const episode = async (req, res) => {
-    console.log("episode success")
+    try {
+        const name = req.params.title;
+        const episode = req.params.pageNumber;
+
+        const ROOT_PATH = path.resolve(__dirname, '..', '..');
+
+        const BASE_PATH_EP = path.join(ROOT_PATH, 'public', 'schema', name);
+        const BASE_PATH_IMAGE = path.join(BASE_PATH_EP, episode);
+
+        try {
+            await fs.access(BASE_PATH_EP);
+            await fs.access(BASE_PATH_IMAGE);
+        }
+        catch {
+            return res.status(404).send("Folder not found or image not found")
+        }
+
+        const files = await fs.readdir(BASE_PATH_EP, { withFileTypes: true });
+        const image = await fs.readdir(BASE_PATH_IMAGE, { withFileTypes: true });
+
+        const folders = files
+            .filter(f => f.isDirectory())
+            .map(f => f.name)
+            .sort((a, b) => {
+                const numA = parseInt(a.replace('episode', ''), 10);
+                const numB = parseInt(b.replace('episode', ''), 10);
+                return numA - numB;
+            });
+
+        const imageFiles = image
+            .filter(file => file.isFile() && file.name.endsWith('.jpg'))
+            .map(file => file.name)
+            .sort((a, b) => {
+                const numA = parseInt(a.replace('image_', ''), 10);
+                const numB = parseInt(b.replace('image_', ''), 10);
+                return numA - numB;
+            });
+
+        res.status(200).json({
+            episodes: folders,
+            images: imageFiles
+        })
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error")
+    }
 }

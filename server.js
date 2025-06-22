@@ -18,4 +18,6 @@ connectDB();
 app.use('/api', auth)
 app.use('/anime', view)
 
-app.listen(5000, ()=> console.log("Server is Runing on port 5000"));
+app.listen(5000, '0.0.0.0', () => {
+  console.log("✅ Server is Running on port 5000 (accessible from LAN)");
+});

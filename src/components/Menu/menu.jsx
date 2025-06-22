@@ -11,7 +11,7 @@ function menu() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/anime/menu')
+      const res = await axios.get('http://mangabyphai.ddns.net:4/anime/menu')
       setData(res.data)
     }
     catch (err) {

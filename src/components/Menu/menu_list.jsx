@@ -13,10 +13,10 @@ function menu_list() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/anime/menu/${page}`)
+      const res = await axios.get(`http://mangabyphai.ddns.net:4/anime/menu/${page}`)
       setData(res.data.shows)
       setlastPage(res.data.lastTotalPage)
-      
+
       console.log(res.data.shows)
     }
     catch (err) {

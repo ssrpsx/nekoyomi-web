@@ -14,7 +14,7 @@ function menu_home() {
 
     const loadData = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/anime/${title}/page/home`)
+            const res = await axios.get(`http://mangabyphai.ddns.net:4/anime/${title}/page/home`)
             setData(res.data.data)
             setEpisode(res.data.folders)
         }
@@ -26,8 +26,6 @@ function menu_home() {
     useEffect(() => {
         loadData()
     }, [title])
-
-    console.log(episode)
 
     return (
         <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
@@ -45,7 +43,7 @@ function menu_home() {
                             <div onClick={(e) => {
                                 setfavorite(!favorite);
                             }}
-                                className='text-2xl flex items-center justify-center cursor-pointer gap-2 pl-2.5 pr-4 py-2 my-4 bg-blue-600 rounded'>
+                                className='text-xl flex items-center justify-center cursor-pointer gap-2 pl-2.5 pr-4 py-2 my-4 bg-blue-600 rounded'>
                                 {
                                     favorite ?
                                         <MdFavorite className='text-red-600 font-medium' />
@@ -104,12 +102,15 @@ function menu_home() {
                         </div>
                     </div>
                 </div>
-                <div className='p-6 w-full justify-center bg-gray-800 mt-3 rounded-lg rounded-tl-none rounded-tr-none sm:flex'>
-                    <h1 className='text-xl text-white text-left pb-2 border-b-1 border-gray-700'>{title.replaceAll('-', ' ')}</h1>
-                    <ul className='h-[200px] overflow-y-auto'>
+                <div className='p-6 w-full justify-center bg-gray-800 mt-3 rounded-lg rounded-tl-none rounded-tr-none'>
+                    <h1
+                        className='text-xl text-white text-left pb-2 border-b-1 border-gray-700'>{title.replaceAll('-', ' ')}</h1>
+                    <ul
+                        className='h-[200px] overflow-y-auto'
+                    >
                         {episode && episode.map((ep, index) => (
                             <li
-                                key={ep}
+                                key={index}
                                 className='w-full h-[40px] border-1 border-gray-700
                                  px-3 py-2 rounded my-2'
                             >

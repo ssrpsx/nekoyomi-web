@@ -56,7 +56,7 @@ function about() {
                     <div className=''>
                         <li className='flex text-white items-center gap-2 my-1'>
                             <FaLocationArrow />
-                            <h1 className='font-kanit'>ตลาดพลู, กรุงเทพ</h1>
+                            <h1 className='font-kanit'>Location, กรุงเทพ</h1>
                         </li>
                         <li className='flex text-white items-center gap-2 my-1'>
                             <MdPhoneIphone />
