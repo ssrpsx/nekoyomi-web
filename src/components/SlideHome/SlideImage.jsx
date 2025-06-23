@@ -91,7 +91,7 @@ const settings = {
     cssEase: "ease-in-out",
     pauseOnHover: true,
     pauseOnFocus: true,
-    dotsClass: "slick-dots custom-dot-class", // ใช้ custom class
+    dotsClass: "slick-dots custom-dot-class",
     appendDots: dots => (
         <div className="relative mt-4">
             <ul className="flex justify-center items-center gap-0">{dots}</ul>
