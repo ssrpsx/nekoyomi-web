@@ -10,26 +10,34 @@ function Login() {
     const [username, setusername] = useState("")
     const [password, setpassword] = useState("")
 
-    const handleLogin = () => {
+    const handleForgotClick = () => {
+        navigate('/forgot');
+    };
+
+    const handleLogin = async () => {
         try {
             if (!username || !password) {
                 alert("Please enter both username and password."); return;
             }
-            const res = axios.post(import.meta.env.VITE_API + "/api/login", {
+            const res = await axios.post(import.meta.env.VITE_API + "/api/login", {
                 username: username,
                 password: password
             })
 
-            alert("Logged in successfully!");
+            alert(res.data);
+            navigate('/');
         }
         catch (err) {
-            console.log(err.response.data)
+            if (err.response && err.response.data) {
+                alert(err.response.data);
+            }
+            else {
+                alert("Something went wrong!");
+            }
+            window.location.reload();
         }
     };
 
-    const handleForgotClick = () => {
-        navigate('/forgot');
-    };
     return (
         <div className='block'>
             <div className='p-2 text-center relative'>
@@ -83,14 +91,16 @@ function SignUp() {
             });
 
             alert(res.data);
-
-        } catch (err) {
+            window.location.reload();
+        }
+        catch (err) {
             if (err.response && err.response.data) {
                 alert(err.response.data);
-            } else {
+            }
+            else {
                 alert("Something went wrong!");
             }
-            console.log(err);
+            window.location.reload();
         }
     };
 

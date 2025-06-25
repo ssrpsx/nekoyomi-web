@@ -50,7 +50,7 @@ function forgot() {
             return;
         }
 
-        //code
+        //code api
 
         localStorage.setItem("code_sent_time", Date.now().toString());
         setissend(true);

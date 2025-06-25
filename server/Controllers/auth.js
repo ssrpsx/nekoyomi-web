@@ -48,7 +48,7 @@ export const login = async (req, res) => {
         var user = await User.findOneAndUpdate({ username }, { new: true })
 
         if (user) {
-            const isMatch = await bcrypt.compare(password, user.password)
+            const isMatch = await bcrypt.compare( password, user.password)
 
             if (!isMatch) {
                 return res.status(400).send("Password Ivalid!!!")
@@ -64,6 +64,8 @@ export const login = async (req, res) => {
                 if (err) throw err;
                 res.json({ token, payload })
             })
+
+            res.status(201).send("Login Success!!")
         }
         else {
             return res.status(400).send("User not found!!!")
