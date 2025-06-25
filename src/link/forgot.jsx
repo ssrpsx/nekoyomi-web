@@ -8,6 +8,7 @@ function forgot() {
     const [timer, setTimer] = useState(60);
     const [intervalId, setIntervalId] = useState(null);
     const [gmail, setgmail] = useState("")
+    const [pass_menu, setpass_menu] = useState(false)
 
     useEffect(() => {
         const lastSent = localStorage.getItem("code_sent_time");
@@ -58,7 +59,7 @@ function forgot() {
 
 
     return (
-        <div className="flex justify-center items-center h-full mt-[8vh]">
+        <div className="flex justify-center items-center h-full my-[8vh]">
             <div className="w-11/12 sm:w-2/5 bg-white px-8 py-6 sm:p-18 rounded shadow-sm border border-gray-900/10 h-full dark:bg-gray-800">
                 <h1 className='text-center text-2xl font-bold mb-8 dark:text-gray-200'>Forgot your password!</h1>
                 <h2 className='pl-3 text-left text-base font-bold text-gray-500 dark:text-gray-400'>send a 6-digit code to your emaill address.</h2>
@@ -91,7 +92,22 @@ function forgot() {
                                 e.target.value = onlyNums;
                             }} />
                     </div>
+                    {
+                        pass_menu ? <div className='p-2 text-center relative'>
+                            <IoLockClosedOutline className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+                            <input type="password"
+                                placeholder='Password'
+                                required
+                                onChange={e => setpassword(e.target.value)}
+                                className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300' />
+                        </div> : ""
+                    }
                 </div>
+                <button
+                    className='mt-4 w-full bg-[#5313c4] p-4 rounded text-white font-bold cursor-pointer'
+                >
+                    {pass_menu ? "Change Password" : "Check code"}
+                </button>
             </div>
         </div>
     )

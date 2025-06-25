@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
+    gmail: {
+        type: String,
+        required: true,
+        unique: true
+    },
     username: {
         type: String,
         required: true,
@@ -15,8 +20,7 @@ const userSchema = mongoose.Schema({
         {
             mangaName: {
                 type: String,
-                required: true,
-                unique: true
+                required: true
             },
             lastReadEpisode: {
                 type: Number,

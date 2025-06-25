@@ -12,7 +12,6 @@ function menu() {
   const loadData = async () => {
     try {
       const res = await axios.get(import.meta.env.VITE_API + '/anime/menu')
-      console.log(import.meta.env.VITE_API)
       setData(res.data)
     }
     catch (err) {

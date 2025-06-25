@@ -3,25 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
+import axios from 'axios';
 
 function Login() {
     const navigate = useNavigate();
-    const [ismenu, setismenu] = useState(false)
     const [username, setusername] = useState("")
     const [password, setpassword] = useState("")
 
     const handleLogin = () => {
-        if (!username || !password) {
-            alert("Please enter both username and password.");
-            return;
+        try {
+            if (!username || !password) {
+                alert("Please enter both username and password."); return;
+            }
+            const res = axios.post(import.meta.env.VITE_API + "/api/login", {
+                username: username,
+                password: password
+            })
+
+            alert("Logged in successfully!");
         }
-
-        //code
-
-        alert("Logged in successfully!");
+        catch (err) {
+            console.log(err.response.data)
+        }
     };
 
-    const handleLoginClick = () => {
+    const handleForgotClick = () => {
         navigate('/forgot');
     };
     return (
@@ -42,13 +48,9 @@ function Login() {
                     onChange={e => setpassword(e.target.value)}
                     className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300' />
             </div>
-            <div className='p-2 mt-1 mb-5 block sm:flex justify-between'>
-                <div className='mb-2 sm:mb-0'>
-                    <input type="checkbox" className='mr-1 cursor-pointer'></input>
-                    <span className='text-gray-700 dark:text-gray-400'>Remember me</span>
-                </div>
+            <div className='p-2 mt-1 mb-5 block sm:flex'>
                 <div>
-                    <a className='text-blue-600 dark:text-blue-400 cursor-pointer' onClick={handleLoginClick}>Forgot password?</a>
+                    <a className='text-blue-600 dark:text-blue-400 cursor-pointer' onClick={handleForgotClick}>Forgot password?</a>
                 </div>
             </div>
             <div className='p-2 text-center'>
@@ -62,20 +64,34 @@ function SignUp() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSignUp = () => {
-        if (!gmail || !username || !password) {
-            alert("Please fill in all fields.");
-            return;
+    const handleSignUp = async () => {
+        try {
+            if (!gmail || !username || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            if (!gmail.includes("@") || !gmail.includes(".")) {
+                alert("Please enter a valid Gmail address.");
+                return;
+            }
+
+            const res = await axios.post(import.meta.env.VITE_API + "/api/register", {
+                gmail: gmail,
+                username: username,
+                password: password,
+            });
+
+            alert(res.data);
+
+        } catch (err) {
+            if (err.response && err.response.data) {
+                alert(err.response.data);
+            } else {
+                alert("Something went wrong!");
+            }
+            console.log(err);
         }
-
-        if (!gmail.includes("@") || !gmail.includes(".")) {
-            alert("Please enter a valid Gmail address.");
-            return;
-        }
-
-        //code
-
-        alert("You have signed up successfully!");
     };
 
     return (
@@ -113,11 +129,7 @@ function SignUp() {
                     className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300'
                 />
             </div>
-            <div className='p-2 mt-1 mb-5'>
-                <input type="checkbox" className='mr-1 cursor-pointer' />
-                <span className='text-gray-700 dark:text-gray-400'>Remember me</span>
-            </div>
-            <div className='p-2 text-center'>
+            <div className='p-2 mt-6 text-center'>
                 <button
                     className='w-full bg-[#5313c4] p-4 rounded text-white font-bold cursor-pointer'
                     onClick={handleSignUp}

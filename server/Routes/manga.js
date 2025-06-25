@@ -1,9 +1,8 @@
 import express from 'express'
-import {ft_added, menu, menu_list, list, episode} from '../Controllers/manga.js'
+import {menu, menu_list, list, episode} from '../Controllers/manga.js'
 
 const router = express.Router()
 
-router.post('/', ft_added)
 router.get('/menu', menu) // รับเดต้าเมนูทั้งหมด
 router.get('/menu/:pageNumber', menu_list) // หน้าเมนู ตอนกด More
 router.get('/:title/page/home', list) // หน้าแรก ที่กดเข้าเรื่องใดไป ละก็เลือกตอน
