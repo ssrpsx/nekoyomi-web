@@ -16,7 +16,7 @@ function menu_list() {
       setData(res.data.shows)
       setlastPage(res.data.lastTotalPage)
 
-      console.log(res.data.shows)
+      console.log(res.data.lastTotalPage)
     }
     catch (err) {
       console.log(err)
@@ -25,11 +25,14 @@ function menu_list() {
 
   const categoryMap = {
     menu_list: 'อนิเมะ & มังงะ',
-    popular: 'views_desc',
+    popular: 'อนิเมะ & มังงะยอดนิยม',
+    action: 'อนิเมะ & มังงะต่อสู้',
+    adventure: 'อนิเมะ & มังงะผจญภัย',
+    drama: 'อนิเมะ & มังงะดราม่า',
+    fantasy: 'อนิเมะ & มังงะแฟนตาซี'
   };
 
   const fixedCategory = categoryMap[category] || category;
-
 
   const goToPage = (newPage) => {
     if (newPage >= 1) {
@@ -47,14 +50,14 @@ function menu_list() {
       <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
         <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
           <h1 className='font-kanit text-white text-xl font-medium text-center'>
-            {category} ({pageNumber})
+            {fixedCategory} หน้าที่ {pageNumber}
           </h1>
         </div>
         <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
-          <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
-            {
-              data && data.length > 0 ? (
-                data.map((manga, index) => (
+          {
+            data && data.length > 0 ? (
+              <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
+                {data.map((manga, index) => (
                   <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
                     <a href={`/anime/${manga.title}/page/home`}>
                       <img
@@ -78,12 +81,14 @@ function menu_list() {
                       </div>
                     </a>
                   </li>
-                ))
-              ) : (
-                <div className="text-center text-white text-xl mt-10">Error 404 - ไม่พบข้อมูล</div>
-              )
-            }
-          </ul>
+                ))}
+              </ul>
+            ) : (
+              <div className="flex justify-center items-center h-[200px] text-white text-xl">
+                Error 404 - ไม่พบข้อมูล
+              </div>
+            )
+          }
           <div className='w-full flex justify-center gap-3'>
             <button
               onClick={() => goToPage(page - 1)}
@@ -98,9 +103,9 @@ function menu_list() {
 
             <button
               onClick={() => goToPage(page + 1)}
-              disabled={page == lastPage}
+              disabled={page == lastPage || lastPage == 0}
               className={`w-1/3 sm:w-1/6 text-center p-1.5 mb-2 font-medium rounded-md
-              ${page == lastPage
+              ${page == lastPage || lastPage == 0
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-blue-500 text-white cursor-pointer'}`}
             >
