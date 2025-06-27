@@ -6,14 +6,13 @@ import { useParams, useNavigate } from 'react-router-dom'
 function menu_list() {
   const [data, setData] = useState([])
   const [lastPage, setlastPage] = useState(1)
-  const [displayData, setDisplayData] = useState([]);
-  const { pageNumber } = useParams()
+  const { category, pageNumber } = useParams()
   const page = parseInt(pageNumber || '1')
   const navigate = useNavigate()
 
   const loadData = async () => {
     try {
-      const res = await axios.get(import.meta.env.VITE_API + `/anime/menu/${page}`)
+      const res = await axios.get(import.meta.env.VITE_API + `/anime/${category}/${page}`)
       setData(res.data.shows)
       setlastPage(res.data.lastTotalPage)
 
@@ -24,25 +23,20 @@ function menu_list() {
     }
   }
 
+  const categoryMap = {
+    menu_list: 'อนิเมะ & มังงะ',
+    popular: 'views_desc',
+  };
+
+  const fixedCategory = categoryMap[category] || category;
+
+
   const goToPage = (newPage) => {
     if (newPage >= 1) {
-      navigate(`/menu/${newPage}`)
+      navigate(`/${category}/${newPage}`)
       window.scrollTo(0, 0)
     }
   }
-
-
-  useEffect(() => {
-    const updateDisplayData = () => {
-      const sorted = [...data].sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-      const sliced = sorted.slice(0, 30);
-      setDisplayData(sliced);
-    };
-
-    updateDisplayData();
-    window.addEventListener('resize', updateDisplayData);
-    return () => window.removeEventListener('resize', updateDisplayData);
-  }, [data]);
 
   useEffect(() => {
     loadData()
@@ -53,42 +47,41 @@ function menu_list() {
       <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
         <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
           <h1 className='font-kanit text-white text-xl font-medium text-center'>
-            มังฮวา & มังงะ อัพเดทใหม่ล่าสุด {pageNumber}
+            {category} ({pageNumber})
           </h1>
         </div>
         <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
           <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
             {
-              displayData.map((manga, index) => (
-                <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
-                  <a
-                    href={`/anime/${manga.title}/page/home`}
-                    className=""
-                  >
-                    <img
-                      src={`/schema/BookCover/${manga.title}.jpg`}
-                      alt=""
-                      className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
-                    />
-                    <div className='h-[90px] flex flex-col justify-between'>
-                      <h1
-                        className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
-                        {manga.title.replaceAll('-', ' ')}
-                      </h1>
-                      <span
-                        className='text-sm text-gray-200 line-clamp-1'>
-                        หมวดหมู่ : {manga.category}
-                      </span>
-                    </div>
-                    <div className='flex justify-between items-center p-1 pl-2'>
-                      <div className='flex items-center gap-2 text-sm'>
-                        <IoEyeSharp className='text-gray-200' />
-                        <h2 className='text-gray-200'>{manga.views} views</h2>
+              data && data.length > 0 ? (
+                data.map((manga, index) => (
+                  <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
+                    <a href={`/anime/${manga.title}/page/home`}>
+                      <img
+                        src={`/schema/BookCover/${manga.title}.jpg`}
+                        alt=""
+                        className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
+                      />
+                      <div className='h-[90px] flex flex-col justify-between'>
+                        <h1 className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
+                          {manga.title.replaceAll('-', ' ')}
+                        </h1>
+                        <span className='text-sm text-gray-200 line-clamp-1'>
+                          หมวดหมู่ : {manga.category}
+                        </span>
                       </div>
-                    </div>
-                  </a>
-                </li>
-              ))
+                      <div className='flex justify-between items-center p-1 pl-2'>
+                        <div className='flex items-center gap-2 text-sm'>
+                          <IoEyeSharp className='text-gray-200' />
+                          <h2 className='text-gray-200'>{manga.views} views</h2>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <div className="text-center text-white text-xl mt-10">Error 404 - ไม่พบข้อมูล</div>
+              )
             }
           </ul>
           <div className='w-full flex justify-center gap-3'>

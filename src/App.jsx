@@ -19,7 +19,7 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/Auth' element={<Auth />}/>
         <Route path='/forgot' element={<Forgot />}/>
-        <Route path='/menu/:pageNumber' element={<Menu_list />}/>
+        <Route path='/:category/:pageNumber' element={<Menu_list />}/>
         <Route path='/anime/:title/page/home' element={<Menu />}/>
         <Route path='/anime/:title/page/:episode' element={<Episode />}/>
       </Routes>

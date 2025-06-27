@@ -18,27 +18,27 @@ const Menu = [
   {
     id: 2,
     name: "ยอดนิยม",
-    link: "/#"
+    link: "/popular/1"
   },
   {
     id: 3,
     name: "ต่อสู้",
-    link: "/#"
+    link: "/action/1"
   },
   {
     id: 4,
     name: "ผจญภัย",
-    link: "/#"
+    link: "/adventure/1"
   },
   {
     id: 5,
     name: "ดราม่า",
-    link: "/#"
+    link: "/drama/1"
   },
   {
     id: 6,
     name: "แฟนตาซี",
-    link: "/#"
+    link: "/fantasy/1"
   }
 ]
 

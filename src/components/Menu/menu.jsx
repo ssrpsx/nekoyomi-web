@@ -11,8 +11,8 @@ function menu() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get(import.meta.env.VITE_API + '/anime/menu')
-      setData(res.data)
+      const res = await axios.get(import.meta.env.VITE_API + '/anime/menu/1')
+      setData(res.data.shows)
     }
     catch (err) {
       console.log(err)
@@ -83,7 +83,7 @@ function menu() {
             </ul>
             <div className="flex justify-center">
               <Link
-                to="/menu/1"
+                to="/menu_list/1"
                 className="w-4/8 sm:w-1/3 text-center cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md"
               >
                 แสดงเพิ่มเติม

@@ -8,36 +8,57 @@ const __dirname = path.dirname(__filename);
 
 export const menu = async (req, res) => {
     try {
-        const show = await anime.find({}).exec()
-        res.send(show)
-    }
-    catch (err) {
-        console.log(err)
-        res.status(500).send("Server Error")
-    }
-}
+        const { category, pageNumber } = req.params;
+        const page = Number(pageNumber) || 1;
+        const limit = 30;
+        const skip = (page - 1) * limit;
 
-export const menu_list = async (req, res) => {
-    try {
-        const page = Number(req.params.pageNumber) || 1
-        const limit = 30
-        const skip = (page - 1) * limit
+        let shows;
+        let total;
 
-        const shows = await anime.find().skip(skip).limit(limit).exec()
-        const total = await anime.countDocuments()
+        if (category === 'menu') {
+            shows = await anime.find({}).exec();
+        }
+        else if (category === 'popular') {
+            shows = await anime
+                .find({})
+                .sort({ views: -1 })
+                .skip(skip)
+                .limit(limit)
+                .exec()
+            total = await anime.countDocuments()
+        }
+        else if (category === 'menu_list') {
+            shows = await anime.find().skip(skip).limit(limit).exec()
+            total = await anime.countDocuments()
+        }
+        else {
+            const regex = new RegExp(`\\b${category}\\b`, "i");
 
-        const lastTotalPage = Math.ceil(total / limit)
+            shows = await anime
+                .find({
+                    category: {
+                        $regex: regex
+                    }
+                })
+                .skip(skip)
+                .limit(limit)
+                .exec();
+            total = await anime.countDocuments({ category: { $regex: regex } });
+        }
+
+        const lastTotalPage = Math.ceil(total / limit);
+
         res.status(200).send({
             shows,
-            lastTotalPage
-        })
+            lastTotalPage,
+        });
     }
     catch (err) {
-        console.log(err)
-        res.status(500).send("Server Error")
+        console.error(err);
+        res.status(500).send("Server Error");
     }
-}
-
+};
 
 export const list = async (req, res) => {
     try {
