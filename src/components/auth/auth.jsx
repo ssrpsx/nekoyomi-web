@@ -39,7 +39,7 @@ function Login() {
     };
 
     return (
-        <div className='block'>
+        <div className='block mb-[3.5vh]'>
             <div className='p-2 text-center relative'>
                 <FaRegUser className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
                 <input type="text"
@@ -155,7 +155,7 @@ function auth() {
     const [isLogin, setIsLogin] = useState(true);
 
     return (
-        <div className="flex justify-center items-center h-full mt-[8vh]">
+        <div className="flex justify-center items-center h-full my-[8vh]">
             <div className="w-11/12 sm:w-2/5 bg-white px-8 py-6 sm:p-18 rounded shadow-sm border border-gray-900/10 h-full dark:bg-gray-800">
                 <h1 className='text-center text-2xl font-bold mb-8 dark:text-gray-200'>Welcome to nekoyomi!</h1>
                 <div className='px-2 pt-2 pb-4 mb-8 border-b-2 border-gray-500/20'>
