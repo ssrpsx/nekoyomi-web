@@ -45,11 +45,15 @@ const Menu = [
 function navbar() {
   const navigate = useNavigate();
   const [ismenu, setismenu] = useState(false)
+  const [data, setdata] = useState("")
 
   const handleLoginClick = () => {
     navigate('/Auth');
   };
 
+  const handleSearch = () => {
+    navigate(`${data}/1`);
+  };
 
   return (
     <>
@@ -61,16 +65,24 @@ function navbar() {
                 <img src={Logo} alt="Logo" className='w-8.5' />
                 NekoYomi
               </a>
-              <RiMenuFill className='text-2xl sm:hidden' onClick={ ()=> {setismenu(!ismenu)}}/>
+              <RiMenuFill className='text-2xl sm:hidden' onClick={() => { setismenu(!ismenu) }} />
             </div>
             <div className={`mt-6 mb-3 sm:my-0 block sm:flex justify-between items-center gap-4 transition-all duration-300 ease-in-out ${ismenu ? '' : 'hidden'}`}>
               <div className='group relative items-center gap3'>
                 <input
                   type="Text"
                   placeholder="ค้นหามังฮวา"
+                  onChange={e => setdata(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') {
+                      handleSearch();
+                    }
+                  }}
                   className='font-kanit w-full sm:w-[200px] group-hover:w-[350px] transition-all px-3 py-1.5 pl-4 rounded-full bordor bordor-gray-300 bg-white dark:bg-gray-800 text-black dark:text-white duration-400'
                 />
-                <FaSearch className='text-gray-700 dark:text-gray-200 group-hover:text-[#4E71FF] dark:group-hover:text-gray-200 absolute top-[50%] -translate-y-1/2 right-4 cursor-pointer' />
+                <FaSearch
+                  onClick={handleSearch}
+                  className='text-gray-700 dark:text-gray-200 group-hover:text-[#4E71FF] dark:group-hover:text-gray-200 absolute top-[50%] -translate-y-1/2 right-4 cursor-pointer' />
               </div>
               <div className='my-3 sm:my-0'>
                 <button

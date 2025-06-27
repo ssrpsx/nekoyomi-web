@@ -43,7 +43,7 @@ function menu_list() {
 
   useEffect(() => {
     loadData()
-  }, [page])
+  }, [page, category])
 
   return (
     <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
