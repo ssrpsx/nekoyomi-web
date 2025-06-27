@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 export const menu = async (req, res) => {
     try {
         const { category, pageNumber } = req.params;
+        const newCategory = category.replaceAll(' ', '-');
         const page = Number(pageNumber) || 1;
         const limit = 30;
         const skip = (page - 1) * limit;
@@ -16,10 +17,10 @@ export const menu = async (req, res) => {
         let shows;
         let total;
 
-        if (category === 'menu') {
-            shows = await anime.find({}).exec();
+        if (newCategory === 'menu') {
+            shows = await anime.find().skip(skip).limit(limit).exec()
         }
-        else if (category === 'popular') {
+        else if (newCategory === 'popular') {
             shows = await anime
                 .find({})
                 .sort({ views: -1 })
@@ -28,23 +29,30 @@ export const menu = async (req, res) => {
                 .exec()
             total = await anime.countDocuments()
         }
-        else if (category === 'menu_list') {
+        else if (newCategory === 'menu_list') {
             shows = await anime.find().skip(skip).limit(limit).exec()
             total = await anime.countDocuments()
         }
         else {
-            const regex = new RegExp(`\\b${category}\\b`, "i");
+            const regex = new RegExp(newCategory, "i");
 
-            shows = await anime
-                .find({
-                    category: {
-                        $regex: regex
-                    }
-                })
+            shows = await anime.find({
+                $or: [
+                    { category: { $regex: regex } },
+                    { title: { $regex: regex } }
+                ]
+            })
                 .skip(skip)
                 .limit(limit)
                 .exec();
-            total = await anime.countDocuments({ category: { $regex: regex } });
+
+            total = await anime.countDocuments({
+                $or: [
+                    { category: { $regex: regex } },
+                    { title: { $regex: regex } }
+                ]
+            });
+
         }
 
         const lastTotalPage = Math.ceil(total / limit);
@@ -86,6 +94,11 @@ export const list = async (req, res) => {
                 const numB = parseInt(b.replace('episode', ''), 10);
                 return numA - numB;
             });
+
+        await anime.updateOne(
+            {title: name},
+            {$inc: {views : 0.5}}
+        )
 
         res.status(200).json({
             data,

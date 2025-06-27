@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 function menu() {
   const [data, setData] = useState([])
   const [favorite, setfavorite] = useState(false)
-  const [displayData, setDisplayData] = useState([]);
 
   const loadData = async () => {
     try {
@@ -18,18 +17,6 @@ function menu() {
       console.log(err)
     }
   }
-
-  useEffect(() => {
-    const updateDisplayData = () => {
-      const sorted = [...data].sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-      const sliced = sorted.slice(0, 25);
-      setDisplayData(sliced);
-    };
-
-    updateDisplayData();
-    window.addEventListener('resize', updateDisplayData);
-    return () => window.removeEventListener('resize', updateDisplayData);
-  }, [data]);
 
   useEffect(() => {
     loadData()
@@ -49,7 +36,8 @@ function menu() {
           <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
             <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
               {
-                displayData.map((manga, index) => (
+                data.slice(0, 25)
+                .map((manga, index) => (
                   <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
                     <a
                       href={`/anime/${manga.title}/page/home`}

@@ -16,6 +16,7 @@ function menu_list() {
       setData(res.data.shows)
       setlastPage(res.data.lastTotalPage)
 
+      console.log(res.data.shows)
       console.log(res.data.lastTotalPage)
     }
     catch (err) {
