@@ -109,10 +109,28 @@ function Episode() {
                 <ul>
                     {data && data.map((item, index) => (
                         <li key={index}>
-                            <img src={`/schema/${title}/${episode}/${item}`}/>
+                            <img
+                            src={`/schema/${title}/${episode}/${item}`}
+                            className='w-full'/>
                         </li>
                     ))}
                 </ul>
+                <div className='flex justify-between bg-gray-800 p-2 w-full'>
+                    <button
+                        onClick={() => goToPage(numA - 1)}
+                        disabled={numA <= minEpisode}
+                        className={`w-[100px] text-center gap-x-1.5 text-gray-200 bg-blue-700 m-4 p-3 rounded-2xl ${numA <= minEpisode ? 'bg-gray-400 text-gray-200' : 'cursor-pointer '}`}
+                    >
+                        ก่อนหน้า
+                    </button>
+                    <button
+                        onClick={() => goToPage(numA + 1)}
+                        disabled={numA >= maxEpisode}
+                        className={`w-[100px] text-center gap-x-1.5 text-gray-200 bg-blue-700 m-4 p-3 rounded-2xl ${numA >= maxEpisode ? 'bg-gray-400 text-gray-200' : 'cursor-pointer '}`}
+                    >
+                        ถัดไป
+                    </button>
+                </div>
             </div>
         </div>
     )

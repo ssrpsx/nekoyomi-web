@@ -48,7 +48,7 @@ function menu_list() {
 
   return (
     <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
-      <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
+      <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[90%] sm:w-[50%] sm:pl-5 sm:pr-0'>
         <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
           <h1 className='font-kanit text-white text-xl font-medium text-center'>
             {fixedCategory} หน้าที่ {pageNumber}
@@ -57,9 +57,9 @@ function menu_list() {
         <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
           {
             data && data.length > 0 ? (
-              <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
+              <ul className='grid grid-cols-2 md:grid-cols-5 sm:grid-cols-5 gap-4'>
                 {data.map((manga, index) => (
-                  <li key={index} className="group text-white h-[350px] max-w-[150px] mx-auto">
+                  <li key={index} className="group text-white h-[350px] md:max-w-[125px] max-w-[150px] mx-auto">
                     <a href={`/anime/${manga.title}/page/home`}>
                       <img
                         src={`/schema/BookCover/${manga.title}.jpg`}

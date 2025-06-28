@@ -26,7 +26,7 @@ function menu() {
     <div className='relative'>
       <div className='flex flex-col md:flex-row gap-4 justify-center'>
 
-        <div className='order-2 md:order-1 w-full p-5 pt-0 sm:w-[50%] sm:pl-5 sm:pr-0'>
+        <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[70%] sm:w-[50%] sm:pl-5 sm:pr-0'>
           <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
             <h1 className='font-kanit text-white text-xl font-medium text-center'>
               มังฮวา & มังงะ อัพเดทใหม่ล่าสุด
@@ -34,7 +34,7 @@ function menu() {
           </div>
 
           <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
-            <ul className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
+            <ul className='grid grid-cols-2 md:grid-cols-4 sm:grid-cols-5 gap-4'>
               {
                 data.slice(0, 25)
                 .map((manga, index) => (
@@ -80,28 +80,28 @@ function menu() {
           </div>
         </div>
 
-        <div className="order-1 md:order-2 w-full sm:w-[25%] sm:pl-0 p-5">
+        <div className="order-1 md:order-2 w-full md:w-[30%] sm:w-[25%] sm:pl-0 p-5">
           <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg sm:rounded-bl-none sm:rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
-            <h1 className='font-kanit text-white text-xl font-medium text-center'>
+            <h1 className='font-kanit text-white text-xl md:text-base font-medium text-center'>
               ยอดฮิตติดอันดับ TOP 5
             </h1>
           </div>
 
           <div>
             <div className='relative w-full mx-auto'>
-              <ul className='p-5 flex flex-nowrap sm:block sm:bg-gray-700 sm:rounded-bl-lg sm:rounded-br-lg overflow-x-auto scroll-smooth scrollbar-hide gap-4 touch-pan-x'>
+              <ul className='p-5 md:p-3 flex flex-nowrap sm:block sm:bg-gray-700 sm:rounded-bl-lg sm:rounded-br-lg overflow-x-auto scroll-smooth scrollbar-hide gap-4 touch-pan-x'>
                 {data.sort((a, b) => b.views - a.views)
                   .slice(0, 5)
                   .map((item, index) => (
                     <li
                       key={index}
-                      className='flex bg-gray-800 rounded-xl overflow-hidden min-w-[375px] h-[250px] sm:mb-4 cursor-pointer hover:bg-gray-900 transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
+                      className='flex bg-gray-800 rounded-xl overflow-hidden min-w-[375px] md:min-w-[200px] md:h-[425px] h-[250px] sm:mb-4 cursor-pointer hover:bg-gray-900 transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
                     >
-                      <a href={`/anime/${item.title}/page/home`} className="flex w-full h-full z-1">
+                      <a href={`/anime/${item.title}/page/home`} className="flex md:block w-full h-full z-1">
                         <img
                           src={`/schema/BookCover/${item.title}.jpg`}
                           alt=""
-                          className='w-[175px] h-full object-cover'
+                          className='w-[175px] md:w-full md:h-[250px] h-full object-cover'
                         />
                         <div className='px-6 py-4 flex flex-col justify-between h-full'>
                           <div>
