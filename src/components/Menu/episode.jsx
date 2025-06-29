@@ -55,14 +55,14 @@ function Episode() {
 
     return (
         <div>
-            <div className='p-2 text-center'>
+            <div className='p-2 text-center lg:w-1/2 lg:my-4 lg:mx-auto'>
                 <div className='py-4 px-8 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
                     <h1 className='font-kanit text-2xl font-bold text-white'>{title.replaceAll('-', ' ')} ตอนที่ {numA} แปลไทย</h1>
                     <div className='border-b-1 w-1/2 border-gray-700 my-4 mx-auto sm:hidden'></div>
                     <span className='font-kanit text-xl text-white'>อ่านมังงะ {title.replaceAll('-', ' ')} ตอนที่ {numA} แปลไทย ที่เว็บ NekoYomi อ่านมังงะออนไลน์</span>
                 </div>
                 <div className='flex justify-between bg-gray-800 p-6 w-full'>
-                    <div className='block w-1/2 mr-4 relative text-center items-center justify-center'>
+                    <div className='block w-full max-w-[50%] mr-4 relative text-center items-center justify-center'>
                         <div
                             className='cursor-pointer w-full flex items-center justify-between gap-x-1.5 text-gray-200 bg-gray-700 px-3 py-2 rounded-2xl mr-4'
                             onClick={() => setismenu(!ismenu)}
@@ -72,7 +72,7 @@ function Episode() {
                             <FiArrowDownCircle />
                         </div>
                         <ul
-                            className={`z-10 h-[400px] w-full px-3 py-2 text-gray-200 text-left bg-gray-700 rounded-lg overflow-y-auto absolute ${ismenu ? 'block' : 'hidden'}`}
+                            className={`absolute left-0 right-0 top-full z-10 h-[400px] w-full px-3 py-2 text-gray-200 text-left bg-gray-700 rounded-lg overflow-y-auto ${ismenu ? 'block' : 'hidden'}`}
                         >
                             {isepisode && isepisode.map((ep, index) => (
                                 <li key={index}
@@ -87,7 +87,7 @@ function Episode() {
                             ))}
                         </ul>
                     </div>
-                    <div className='flex gap-x-2 w-1/2'>
+                    <div className='flex gap-x-2 w-full max-w-[50%] justify-end'>
                         <button
                             onClick={() => goToPage(numA - 1)}
                             disabled={numA <= minEpisode}
@@ -105,13 +105,20 @@ function Episode() {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className='lg:w-1/2 lg:mx-auto'>
                 <ul>
                     {data && data.map((item, index) => (
                         <li key={index}>
                             <img
-                            src={`/schema/${title}/${episode}/${item}`}
-                            className='w-full'/>
+                                src={`/schema/${title}/${episode}/${item}`}
+                                className='w-full'
+                                onClick={() => {
+                                    window.scrollTo({
+                                        top: window.scrollY + 300,
+                                        behavior: 'smooth'
+                                    });
+                                }}
+                            />
                         </li>
                     ))}
                 </ul>

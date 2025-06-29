@@ -24,17 +24,17 @@ function menu() {
 
   return (
     <div className='relative'>
-      <div className='flex flex-col md:flex-row gap-4 justify-center'>
+      <div className='flex flex-col md:flex-row gap-4 md:gap-0 lg:gap-4 justify-center'>
 
-        <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[70%] sm:w-[50%] sm:pl-5 sm:pr-0'>
-          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
+        <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[70%] lg:w-[50%] lg:pl-5 sm:pr-0'>
+          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-900 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
             <h1 className='font-kanit text-white text-xl font-medium text-center'>
               มังฮวา & มังงะ อัพเดทใหม่ล่าสุด
             </h1>
           </div>
 
           <div className='p-4 pt-8 w-full justify-center bg-gray-800 rounded-bl-lg rounded-br-lg'>
-            <ul className='grid grid-cols-2 md:grid-cols-4 sm:grid-cols-5 gap-4'>
+            <ul className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4'>
               {
                 data.slice(0, 25)
                 .map((manga, index) => (
@@ -72,7 +72,7 @@ function menu() {
             <div className="flex justify-center">
               <Link
                 to="/menu_list/1"
-                className="w-4/8 sm:w-1/3 text-center cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md"
+                className="w-4/8 lg:w-1/3 text-center cursor-pointer p-3 mb-2 bg-blue-500 text-white font-medium rounded-md"
               >
                 แสดงเพิ่มเติม
               </Link>
@@ -80,8 +80,8 @@ function menu() {
           </div>
         </div>
 
-        <div className="order-1 md:order-2 w-full md:w-[30%] sm:w-[25%] sm:pl-0 p-5">
-          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg sm:rounded-bl-none sm:rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
+        <div className="order-1 md:order-2 w-full md:w-[30%] lg:w-[25%] lg:pl-0 p-5">
+          <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-900 rounded-lg sm:rounded-bl-none sm:rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
             <h1 className='font-kanit text-white text-xl md:text-base font-medium text-center'>
               ยอดฮิตติดอันดับ TOP 5
             </h1>
@@ -89,30 +89,30 @@ function menu() {
 
           <div>
             <div className='relative w-full mx-auto'>
-              <ul className='p-5 md:p-3 flex flex-nowrap sm:block sm:bg-gray-700 sm:rounded-bl-lg sm:rounded-br-lg overflow-x-auto scroll-smooth scrollbar-hide gap-4 touch-pan-x'>
+              <ul className='p-5 md:p-3 flex flex-nowrap sm:block sm:bg-gray-800 sm:rounded-bl-lg sm:rounded-br-lg overflow-x-auto scroll-smooth scrollbar-hide gap-4 touch-pan-x'>
                 {data.sort((a, b) => b.views - a.views)
                   .slice(0, 5)
                   .map((item, index) => (
                     <li
                       key={index}
-                      className='flex bg-gray-800 rounded-xl overflow-hidden min-w-[375px] md:min-w-[200px] md:h-[425px] h-[250px] sm:mb-4 cursor-pointer hover:bg-gray-900 transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
+                      className='flex bg-gray-800 dark:bg-gray-900 rounded-xl overflow-hidden min-w-[375px] h-[250px] md:min-w-[175px] md:h-[500px] lg:h-full lg:min-w-[150px] sm:mb-4 cursor-pointer hover:bg-[#121322] transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
                     >
-                      <a href={`/anime/${item.title}/page/home`} className="flex md:block w-full h-full z-1">
+                      <a href={`/anime/${item.title}/page/home`} className="flex md:block lg:flex w-full z-1">
                         <img
                           src={`/schema/BookCover/${item.title}.jpg`}
                           alt=""
-                          className='w-[175px] md:w-full md:h-[250px] h-full object-cover'
+                          className='w-[175px] md:w-full md:h-1/2 h-full lg:h-[300px] lg:w-[200px] object-cover'
                         />
-                        <div className='px-6 py-4 flex flex-col justify-between h-full'>
+                        <div className='px-6 py-4 flex flex-col justify-between h-1/2'>
                           <div>
-                            <h1 className='text-[#4E71FF] font-bold text-lg leading-tight'>
+                            <h1 className='text-[#4E71FF] font-bold text-lg md:text-base lg:text-lg leading-tight'>
                               {index + 1}. {item.title.replaceAll('-', ' ')}
                             </h1>
-                            <div className='flex gap-2 text-gray-200 my-1'>
+                            <div className='flex gap-2 text-gray-200 my-1 md:text-sm lg:text-base'>
                               <h2>หมวดหมู่ </h2>
                               <span>Something.</span>
                             </div>
-                            <span className='text-sm text-gray-300/80'>
+                            <span className='text-sm text-gray-300/80 md:text-xs lg:text-sm'>
                               {
                                 [
                                   'เด็กหนุ่มผู้หลงทางถูกดึงเข้าสู่โลกที่เต็มไปด้วยเวทมนตร์และความลับที่เขาไม่เคยรู้จักมาก่อน',
