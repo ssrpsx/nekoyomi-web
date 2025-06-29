@@ -95,7 +95,7 @@ function menu() {
                   .map((item, index) => (
                     <li
                       key={index}
-                      className='flex bg-gray-800 dark:bg-gray-900 rounded-xl overflow-hidden min-w-[375px] h-[250px] md:min-w-[175px] md:h-[500px] lg:h-full lg:min-w-[150px] sm:mb-4 cursor-pointer hover:bg-[#121322] transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
+                      className='flex bg-gray-900 rounded-xl overflow-hidden min-w-[375px] h-[250px] md:min-w-[175px] md:h-[500px] lg:h-full lg:min-w-[150px] sm:mb-4 cursor-pointer hover:bg-[#121322] transition sm:shadow-[0px_2px_6px_rgba(0,0,0,0.7)]'
                     >
                       <a href={`/anime/${item.title}/page/home`} className="flex md:block lg:flex w-full z-1">
                         <img
@@ -103,7 +103,7 @@ function menu() {
                           alt=""
                           className='w-[175px] md:w-full md:h-1/2 h-full lg:h-[300px] lg:w-[200px] object-cover'
                         />
-                        <div className='px-6 py-4 flex flex-col justify-between h-1/2'>
+                        <div className='px-6 py-4 flex flex-col justify-between h-1/2 lg:h-full'>
                           <div>
                             <h1 className='text-[#4E71FF] font-bold text-lg md:text-base lg:text-lg leading-tight'>
                               {index + 1}. {item.title.replaceAll('-', ' ')}
