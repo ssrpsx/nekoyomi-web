@@ -56,6 +56,8 @@ export const login = async (req, res) => {
 
             const payload = {
                 user: {
+                    _id: user._id,
+                    gmail: user.gmail,
                     username: user.username
                 }
             };

@@ -1,4 +1,5 @@
 import anime from '../Models/manga.js'
+import User from '../Models/auth.js'
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -96,8 +97,8 @@ export const list = async (req, res) => {
             });
 
         await anime.updateOne(
-            {title: name},
-            {$inc: {views : 0.5}}
+            { title: name },
+            { $inc: { views: 1 } }
         )
 
         res.status(200).json({
@@ -155,6 +156,55 @@ export const episode = async (req, res) => {
             episodes: folders,
             images: imageFiles
         })
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error")
+    }
+}
+
+export const getToggleFavorite = async (req, res) => {
+    try {
+        const { id, mangaName } = req.body
+
+        const user = await User.findOne({ _id: id })
+        if (!user) return res.status(400).send("User not found")
+
+        if (!user.mangaReadProgress) {
+            user.mangaReadProgress = [];
+        }
+
+        const existingIndex = user.mangaReadProgress.findIndex(item => item.mangaName === mangaName);
+
+        if (existingIndex !== -1) {
+            user.mangaReadProgress[existingIndex].favorite = !user.mangaReadProgress[existingIndex].favorite;
+        }
+        else {
+            user.mangaReadProgress.push({
+                mangaName,
+                lastReadEpisode: 1,
+                favorite: true,
+            });
+        }
+
+        await user.save();
+
+        return res.status(200).send({
+            mangaReadProgress: user.mangaReadProgress
+        })
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error")
+    }
+}
+
+export const getFavorite = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findOne({ _id: id })
+
+        res.status(200).send(user.mangaReadProgress)
     }
     catch (err) {
         console.error(err);

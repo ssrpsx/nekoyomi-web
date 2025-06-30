@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-export const auth = async(req, res, next) => {
+const auth = async(req, res, next) => {
     try {
         const token = req.headers["authtoken"]
         if(!token) {
@@ -17,3 +17,5 @@ export const auth = async(req, res, next) => {
         res.status(500).send('Token Invalid!')
     }
 }
+
+export default auth;

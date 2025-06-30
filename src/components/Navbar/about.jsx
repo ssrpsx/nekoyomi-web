@@ -14,7 +14,7 @@ function about() {
                     </li>
                     <li>
                         <span className='font-kanit text-gray-400 text-justify'>
-                            เว็บไซต์นี้จัดทำขึ้นเพื่อเสริมสร้างความเข้าใจและทักษะในการพัฒนาเว็บแอปพลิเคชัน โดยใช้เทคโนโลยี React, Node.js, Express และ Tailwind CSS เป็นเครื่องมือหลัก เพื่อพัฒนาทักษะพื้นฐานด้าน Web Development ซึ่งสามารถนำไปประยุกต์ใช้และต่อยอดร่วมกับทักษะอื่นๆ ในอนาคต
+                            เว็บไซต์นี้จัดทำขึ้นเพื่อเสริมสร้างความเข้าใจและทักษะในการพัฒนาเว็บแอปพลิเคชัน โดยใช้เทคโนโลยี React, Node.js, Express และ Tailwind CSS เป็นเครื่องมือหลัก เพื่อพัฒนาทักษะพื้นฐานด้าน Web Development ซึ่งจะนำไปประยุกต์ใช้และต่อยอดร่วมกับทักษะอื่นๆ ในอนาคต
                         </span>
                     </li>
                 </ul>
@@ -39,16 +39,16 @@ function about() {
                         <h1 className='font-kanit font-bold text-2xl text-white mb-3'>หมวดหมู่</h1>
                     </li>
                     <li>
-                        <a href="#"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>ต่อสู้</h2></a>
+                        <a href="/action/1"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>ต่อสู้</h2></a>
                     </li>
                     <li>
-                        <a href="#"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>ผจญภัย</h2></a>
+                        <a href="/adventure/1"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>ผจญภัย</h2></a>
                     </li>
                     <li>
-                        <a href="#"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>ดราม่า</h2></a>
+                        <a href="/drama/1"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>ดราม่า</h2></a>
                     </li>
                     <li>
-                        <a href="#"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>แฟนตาชี</h2></a>
+                        <a href="/fantasy/1"><h2 className='font-kanit text-gray-400 hover:text-blue-600'>แฟนตาชี</h2></a>
                     </li>
                 </ul>
                 <div className='my-2 border-b-1 w-1/2 border-gray-800 mx-auto sm:hidden'></div>

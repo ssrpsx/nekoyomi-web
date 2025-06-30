@@ -6,12 +6,11 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import axios from 'axios';
 
 function Login() {
-    const navigate = useNavigate();
     const [username, setusername] = useState("")
     const [password, setpassword] = useState("")
 
     const handleForgotClick = () => {
-        navigate('/forgot');
+        window.location.href = '/forgot';
     };
 
     const handleLogin = async () => {
@@ -24,9 +23,8 @@ function Login() {
                 password: password
             })
 
-            console.log(res.data.token)
-            // localStorage.setItem("authtoken", res.data.token)
-            navigate('/');
+            localStorage.setItem("authtoken", res.data.token)
+            window.location.href = '/';
         }
         catch (err) {
             if (err.response && err.response.data) {
