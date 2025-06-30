@@ -64,8 +64,6 @@ export const login = async (req, res) => {
                 if (err) throw err;
                 res.json({ token, payload })
             })
-
-            res.status(201).send("Login Success!!")
         }
         else {
             return res.status(400).send("User not found!!!")

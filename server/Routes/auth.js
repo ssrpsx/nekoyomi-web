@@ -1,10 +1,7 @@
 import express from 'express'
 import { register, login, list } from '../Controllers/auth.js'
-import { auth } from '../Middleware/auth.js'
 
 const router = express.Router()
-
-router.get('/auth', list)
 
 router.post('/register', register)
 
