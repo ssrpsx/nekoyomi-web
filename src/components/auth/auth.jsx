@@ -24,7 +24,8 @@ function Login() {
                 password: password
             })
 
-            alert(res.data);
+            console.log(res.data.token)
+            // localStorage.setItem("authtoken", res.data.token)
             navigate('/');
         }
         catch (err) {
@@ -46,6 +47,11 @@ function Login() {
                     placeholder='Username'
                     required
                     onChange={e => setusername(e.target.value)}
+                    onKeyDown={ e => {
+                        if (e.key === 'Enter') {
+                            handleLogin()
+                        }
+                    }}
                     className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300' />
             </div>
             <div className='p-2 text-center relative'>
@@ -54,6 +60,11 @@ function Login() {
                     placeholder='Password'
                     required
                     onChange={e => setpassword(e.target.value)}
+                    onKeyDown={ e => {
+                        if (e.key === 'Enter') {
+                            handleLogin()
+                        }
+                    }}
                     className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300' />
             </div>
             <div className='p-2 mt-1 mb-5 block sm:flex'>
@@ -114,6 +125,11 @@ function SignUp() {
                     required
                     value={gmail}
                     onChange={(e) => setGmail(e.target.value)}
+                    onKeyDown={ e => {
+                        if (e.key === 'Enter') {
+                            handleLogin()
+                        }
+                    }}
                     className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300'
                 />
             </div>
@@ -125,6 +141,11 @@ function SignUp() {
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    onKeyDown={ e => {
+                        if (e.key === 'Enter') {
+                            handleLogin()
+                        }
+                    }}
                     className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300'
                 />
             </div>
@@ -136,6 +157,11 @@ function SignUp() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={ e => {
+                        if (e.key === 'Enter') {
+                            handleLogin()
+                        }
+                    }}
                     className='p-4 pl-12 w-full bg-gray-300/50 rounded dark:bg-gray-400/50 dark:text-gray-300'
                 />
             </div>
