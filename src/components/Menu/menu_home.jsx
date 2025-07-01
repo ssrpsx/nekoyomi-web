@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { IoEyeSharp } from "react-icons/io5";
 import { MdFavoriteBorder, MdFavorite } from "react-icons/md";
+import { jwtDecode } from 'jwt-decode';
 
 function menu_home() {
     const { title } = useParams();
     const [data, setData] = useState()
-    const [user, setUser] = useState()
     const [episode, setEpisode] = useState()
-    const [favorite, setfavorite] = useState(false)
+    const [favorites, setFavorites] = useState([]);
+    
     const randomIndex = title.length % 5;
 
     const loadData = async () => {
@@ -23,9 +24,66 @@ function menu_home() {
         }
     }
 
+    const loadFavorites = async () => {
+        try {
+          const token = localStorage.getItem('authtoken');
+          if (!token) return;
+    
+          const decoded = jwtDecode(token);
+          const res = await axios.get(import.meta.env.VITE_API + '/anime/favorite/' + decoded.user._id, {
+            headers: {
+              authtoken: token
+            }
+          });
+    
+          const favIds = res.data
+            .filter(item => item.favorite)
+            .map(item => item.mangaName);
+    
+          setFavorites(favIds);
+        }
+        catch (err) {
+          console.log(err);
+        }
+      };
+    
+      const ft_setfavorite = async (name) => {
+        const token = localStorage.getItem('authtoken');
+        if (!token) {
+          alert('กรุณาเข้าสู่ระบบก่อน');
+          window.location.href = '/Auth'
+          return;
+        }
+    
+        try {
+          const decoded = jwtDecode(token);
+          const res = await axios.post(import.meta.env.VITE_API + '/anime/toggle-favorite',
+            {
+              id: decoded.user._id,
+              mangaName: name
+            },
+            {
+              headers: {
+                authtoken: token
+              }
+            }
+          );
+    
+          const newFavs = res.data.mangaReadProgress
+            .filter(item => item.favorite)
+            .map(item => item.mangaName);
+    
+          setFavorites(newFavs);
+        }
+        catch (err) {
+          console.log(err);
+        }
+      };
+
     useEffect(() => {
         loadData()
-    }, [title])
+        loadFavorites()
+    }, [])
 
     return (
         <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
@@ -40,12 +98,12 @@ function menu_home() {
                         <img src={`/schema/BookCover/${title}.jpg`}
                             className='w-[200px] md:w-[250px]' />
                         <div>
-                            <div onClick={(e) => {
-                                setfavorite(!favorite);
-                            }}
+                            <div onClick={ () => {
+                                ft_setfavorite(title)}
+                            }
                                 className='text-xl flex items-center justify-center cursor-pointer gap-2 pl-2.5 pr-4 py-2 my-4 bg-blue-600 rounded'>
                                 {
-                                    favorite ?
+                                    favorites.includes(title) ?
                                         <MdFavorite className='text-red-600 font-medium' />
                                         : <MdFavoriteBorder className='text-white font-medium' />
                                 }

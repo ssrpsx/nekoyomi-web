@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { IoEyeSharp } from "react-icons/io5";
 import { useParams, useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode';
 
 function menu_list() {
   const [data, setData] = useState([])
+  const [favorites, setFavorites] = useState([]);
+
   const [lastPage, setlastPage] = useState(1)
   const { category, pageNumber } = useParams()
+
   const page = parseInt(pageNumber || '1')
   const navigate = useNavigate()
 
@@ -14,15 +18,37 @@ function menu_list() {
     try {
       const res = await axios.get(import.meta.env.VITE_API + `/anime/${category}/${page}`)
       setData(res.data.shows)
+      console.log("shows : ", res.data.shows)
       setlastPage(res.data.lastTotalPage)
-
-      console.log(res.data.shows)
-      console.log(res.data.lastTotalPage)
     }
     catch (err) {
       console.log(err)
     }
   }
+
+  const loadFavorites = async () => {
+    try {
+      const token = localStorage.getItem('authtoken');
+      if (!token) return;
+
+      const decoded = jwtDecode(token);
+      const res = await axios.get(import.meta.env.VITE_API + '/anime/favorite/' + decoded.user._id, {
+        headers: {
+          authtoken: token
+        }
+      });
+
+      const favIds = res.data
+        .filter(item => item.favorite)
+        .map(item => item.mangaName);
+
+      setFavorites(favIds);
+      setlastPage(1);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
 
   const categoryMap = {
     menu_list: 'อนิเมะ & มังงะ',
@@ -30,7 +56,8 @@ function menu_list() {
     action: 'อนิเมะ & มังงะต่อสู้',
     adventure: 'อนิเมะ & มังงะผจญภัย',
     drama: 'อนิเมะ & มังงะดราม่า',
-    fantasy: 'อนิเมะ & มังงะแฟนตาซี'
+    fantasy: 'อนิเมะ & มังงะแฟนตาซี',
+    favorites: 'อนิเมะ & มังงะ รายการโปรด'
   };
 
   const fixedCategory = categoryMap[category] || category;
@@ -44,8 +71,14 @@ function menu_list() {
 
   useEffect(() => {
     loadData()
+
+    if (category === "favorites") {
+      loadFavorites()
+    }
   }, [page, category])
 
+  console.log("data : ", data)
+  console.log(lastPage)
   return (
     <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
       <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[90%] lg:w-[50%] sm:pl-5 sm:pr-0'>
@@ -58,31 +91,36 @@ function menu_list() {
           {
             data && data.length > 0 ? (
               <ul className='grid grid-cols-2 md:grid-cols-5 sm:grid-cols-5 gap-4 lg:gap-0'>
-                {data.map((manga, index) => (
-                  <li key={index} className="group text-white h-[335px] md:max-w-[125px] max-w-[150px] mx-auto">
-                    <a href={`/anime/${manga.title}/page/home`}>
-                      <img
-                        src={`/schema/BookCover/${manga.title}.jpg`}
-                        alt=""
-                        className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
-                      />
-                      <div className='h-[90px] flex flex-col justify-between'>
-                        <h1 className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
-                          {manga.title.replaceAll('-', ' ')}
-                        </h1>
-                        <span className='text-sm text-gray-200 line-clamp-1'>
-                          หมวดหมู่ : {manga.category}
-                        </span>
-                      </div>
-                      <div className='flex justify-between items-center p-1 pl-2'>
-                        <div className='flex items-center gap-2 text-sm'>
-                          <IoEyeSharp className='text-gray-200' />
-                          <h2 className='text-gray-200'>{manga.views} views</h2>
+                {data.map((manga, index) => {
+                  const isFav = favorites.includes(manga.title);
+
+                  if (!isFav && category === "favorites") return null;
+                  return (
+                    <li key={index} className="group text-white h-[335px] md:max-w-[125px] max-w-[150px] mx-auto">
+                      <a href={`/anime/${manga.title}/page/home`}>
+                        <img
+                          src={`/schema/BookCover/${manga.title}.jpg`}
+                          alt=""
+                          className='w-[150px] h-[200px] group-hover:scale-105 object-cover transition-transform duration-300 rounded'
+                        />
+                        <div className='h-[90px] flex flex-col justify-between'>
+                          <h1 className='text-white group-hover:text-[#4E71FF] font-semibold text-lg p-1 line-clamp-2'>
+                            {manga.title.replaceAll('-', ' ')}
+                          </h1>
+                          <span className='text-sm text-gray-200 line-clamp-1'>
+                            หมวดหมู่ : {manga.category}
+                          </span>
                         </div>
-                      </div>
-                    </a>
-                  </li>
-                ))}
+                        <div className='flex justify-between items-center p-1 pl-2'>
+                          <div className='flex items-center gap-2 text-sm'>
+                            <IoEyeSharp className='text-gray-200' />
+                            <h2 className='text-gray-200'>{manga.views} views</h2>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             ) : (
               <div className="flex justify-center items-center h-[200px] text-white text-xl">

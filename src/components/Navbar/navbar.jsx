@@ -50,6 +50,8 @@ function navbar() {
   const [data, setdata] = useState("")
   const [user, setUser] = useState("")
 
+  const navigate = useNavigate();
+
   const handleLoginClick = () => {
     window.location.href = '/Auth'
   };
@@ -61,7 +63,8 @@ function navbar() {
   };
 
   const handleSearch = () => {
-    window.location.href = `${data}/1`
+    navigate(`${data}/1`);
+    window.location.reload();
   };
 
   useEffect(() => {

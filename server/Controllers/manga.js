@@ -21,6 +21,9 @@ export const menu = async (req, res) => {
         if (newCategory === 'menu') {
             shows = await anime.find().skip(skip).limit(limit).exec()
         }
+        else if (newCategory === 'favorites') {
+            shows = await anime.find({}).exec()
+        }
         else if (newCategory === 'popular') {
             shows = await anime
                 .find({})
