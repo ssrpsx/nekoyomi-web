@@ -75,6 +75,7 @@ function menu_list() {
       loadFavorites()
     }
     window.scrollTo(0, 0);
+    
   }, [page, category])
   return (
     <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
