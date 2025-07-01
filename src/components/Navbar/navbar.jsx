@@ -76,8 +76,8 @@ function navbar() {
         setUser(decoded.user.username);
       }
       catch (err) {
-        console.error("Invalid token");
-        localStorage.removeItem("authtoken");
+        alert("Token invalid or expired");
+      localStorage.removeItem("authtoken");
       }
     }
   }, [])
@@ -162,7 +162,7 @@ function navbar() {
 
                 <ul className={`sm:absolute text-center left-0 top-full lg:hidden group-hover:block sm:bg-gray-700 w-full shadow-md ${ismenuUser ? '' : 'hidden'}`}>
                   <li className="p-4 hover:bg-gray-600 cursor-pointer text-white">
-                    <a href="#">
+                    <a href="/favorites/1">
                       รายการโปรด
                     </a>
                   </li>

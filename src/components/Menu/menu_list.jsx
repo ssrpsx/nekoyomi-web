@@ -18,7 +18,8 @@ function menu_list() {
     try {
       const res = await axios.get(import.meta.env.VITE_API + `/anime/${category}/${page}`)
       setData(res.data.shows)
-      console.log("shows : ", res.data.shows)
+
+      if(category === 'favorites') return setlastPage(1)
       setlastPage(res.data.lastTotalPage)
     }
     catch (err) {
@@ -43,7 +44,6 @@ function menu_list() {
         .map(item => item.mangaName);
 
       setFavorites(favIds);
-      setlastPage(1);
     }
     catch (err) {
       console.log(err);
@@ -65,7 +65,6 @@ function menu_list() {
   const goToPage = (newPage) => {
     if (newPage >= 1) {
       navigate(`/${category}/${newPage}`)
-      window.scrollTo(0, 0)
     }
   }
 
@@ -75,10 +74,8 @@ function menu_list() {
     if (category === "favorites") {
       loadFavorites()
     }
+    window.scrollTo(0, 0);
   }, [page, category])
-
-  console.log("data : ", data)
-  console.log(lastPage)
   return (
     <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
       <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[90%] lg:w-[50%] sm:pl-5 sm:pr-0'>
