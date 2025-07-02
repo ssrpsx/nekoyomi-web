@@ -8,6 +8,7 @@ import Menu from '../src/components/Menu/menu_home'
 import Menu_list from '../src/components/Menu/menu_list'
 import About from './components/Navbar/about'
 import Episode from './components/Menu/episode'
+import Change from './components/auth/change'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/:category/:pageNumber' element={<Menu_list />}/>
         <Route path='/anime/:title/page/home' element={<Menu />}/>
         <Route path='/anime/:title/page/:episode' element={<Episode />}/>
+        <Route path='/AuthChange' element={<Change />}/>
       </Routes>
       <About />
     </BrowserRouter>

@@ -167,7 +167,7 @@ function navbar() {
                     </a>
                   </li>
                   <li className="p-4 hover:bg-gray-600 cursor-pointer text-white">
-                    <a href="#">
+                    <a href="/AuthChange">
                       เปลี่ยนรหัสผ่าน
                     </a>
                   </li>
