@@ -9,6 +9,7 @@ import Menu_list from '../src/components/Menu/menu_list'
 import About from './components/Navbar/about'
 import Episode from './components/Menu/episode'
 import Change from './components/auth/change'
+import Change_gmail from './components/auth/change_gmail'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path='/anime/:title/page/home' element={<Menu />}/>
         <Route path='/anime/:title/page/:episode' element={<Episode />}/>
         <Route path='/AuthChange' element={<Change />}/>
+        <Route path='/AuthChangeGmail' element={<Change_gmail />}/>
       </Routes>
       <About />
     </BrowserRouter>
