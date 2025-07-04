@@ -32,7 +32,7 @@ export const register = async (req, res) => {
             username,
             password: hashedPassword
         });
-        
+
         await user.save()
 
         res.status(201).send("Register Success!!")
@@ -48,7 +48,7 @@ export const login = async (req, res) => {
         var user = await User.findOneAndUpdate({ username }, { new: true })
 
         if (user) {
-            const isMatch = await bcrypt.compare( password, user.password)
+            const isMatch = await bcrypt.compare(password, user.password)
 
             if (!isMatch) {
                 return res.status(400).send("Password Ivalid!!!")
@@ -77,10 +77,39 @@ export const login = async (req, res) => {
     }
 }
 
-export const list = async (req, res) => {
+export const change = async (req, res) => {
     try {
-        const users = await User.find({}).exec()
-        res.send(users)
+        const { username, password_old, password_1, password_2 } = req.body
+        var user = await User.findOne({ username })
+
+        if (user) {
+            const isMatch = await bcrypt.compare(password_old, user.password)
+
+            if (!isMatch) {
+                return res.status(400).send("Old password is incorrect.")
+            }
+
+            if (password_1 !== password_2) {
+                return res.status(400).send("New passwords do not match.")
+            }
+
+            if (password_old === password_1) {
+                return res.status(400).send("New password must be different from the old password.")
+            }
+
+            const salt = await bcrypt.genSalt(10)
+            const hashedPassword = await bcrypt.hash(password_1, salt);
+
+            await User.updateOne(
+                { username },
+                { password: hashedPassword }
+            );
+
+            return res.status(400).send("Your password has been changed successfully.")
+        }
+        else {
+            return res.status(400).send("User not found!!!")
+        }
     }
     catch (err) {
         console.log(err)
