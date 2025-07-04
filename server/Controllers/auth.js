@@ -79,6 +79,8 @@ export const login = async (req, res) => {
 
 export const change = async (req, res) => {
     try {
+        console.log("dada")
+
         const { username, password_old, password_1, password_2 } = req.body
         var user = await User.findOne({ username })
 

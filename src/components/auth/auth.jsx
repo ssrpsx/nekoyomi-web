@@ -18,7 +18,7 @@ function Login() {
             if (!username || !password) {
                 alert("Please enter both username and password."); return;
             }
-            const res = await axios.post(import.meta.env.VITE_API + "/api/login", {
+            const res = await axios.post(`${import.meta.env.VITE_API}/api/login`, {
                 username: username,
                 password: password
             })

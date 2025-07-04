@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { IoLockClosedOutline } from 'react-icons/io5';
 import { jwtDecode } from 'jwt-decode';
 
@@ -8,8 +9,42 @@ function Change() {
     const [password_2, setPassword_2] = useState("");
     const [user, setUser] = useState("");
 
-    const handleReset = () => {
-        console.log("Logging in with", password_old, password_1, password_2);
+    const handleReset = async () => {
+        try {
+            const token = localStorage.getItem('authtoken');
+
+            if (!token) {
+                alert("No auth token found. Please login again.");
+                return;
+            }
+
+            console.log("Sending reset request for:", user);
+
+            const res = await axios.post(
+                `${import.meta.env.VITE_API}/api/change`,
+                {
+                    username: user,
+                    password_old: password_old,
+                    password_1: password_1,
+                    password_2: password_2
+                },
+                {
+                    headers: {
+                        authToken: token
+                    }
+                }
+            )
+            alert(res.data);
+        }
+        catch (err) {
+            if (err.response && err.response.data) {
+                alert(err.response.data);
+            }
+            else {
+                alert("Something went wrong!");
+            }
+            window.location.reload();
+        }
     };
 
     const handleForgotClick = () => {
@@ -17,6 +52,7 @@ function Change() {
     };
 
     const loadData = () => {
+        console.log(import.meta.env.VITE_API);
         try {
             const token = localStorage.getItem('authtoken')
             if (!token) return;
@@ -25,7 +61,7 @@ function Change() {
             setUser(decoded.user.username)
         }
         catch (err) {
-            console.log(err);            
+            console.log(err);
         }
     }
 
