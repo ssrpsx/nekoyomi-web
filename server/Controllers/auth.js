@@ -1,4 +1,5 @@
 import User from '../Models/auth.js'
+import BlacklistToken from '../Models/token.js';
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
@@ -196,7 +197,12 @@ export const check_gmail = async (req, res) => {
     try {
         const token = req.params.token
         const { password_1, password_2 } = req.body
-        const decoded = jwt.decode(token)
+        const decoded = jwt.verify(token, 'jwtsecret');
+        const usedToken = await BlacklistToken.findOne({ token });
+
+        if (usedToken) {
+            return res.status(401).send("Token has already been used.");
+        }
 
         const user = await User.findOne({ _id: decoded.user._id });
 
@@ -212,12 +218,13 @@ export const check_gmail = async (req, res) => {
             const salt = await bcrypt.genSalt(10)
             const hashedPassword = await bcrypt.hash(password_1, salt);
 
-            await User.findOneAndUpdate(
-                { username: user.username },
+            await User.findByIdAndUpdate(
+                user._id,
                 { $set: { password: hashedPassword } },
                 { new: true }
             );
 
+            await BlacklistToken.create({ token });
             return res.status(200).send("Your password has been changed successfully.")
         }
         else {
