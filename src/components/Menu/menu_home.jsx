@@ -30,7 +30,7 @@ function menu_home() {
           if (!token) return;
     
           const decoded = jwtDecode(token);
-          const res = await axios.get(import.meta.env.VITE_API + '/anime/favorite/' + decoded.user._id, {
+          const res = await axios.get(`${import.meta.env.VITE_API}/anime/favorite/${decoded.user._id}`, {
             headers: {
               authtoken: token
             }
@@ -57,7 +57,7 @@ function menu_home() {
     
         try {
           const decoded = jwtDecode(token);
-          const res = await axios.post(import.meta.env.VITE_API + '/anime/toggle-favorite',
+          const res = await axios.post(`${import.meta.env.VITE_API}/anime/toggle-favorite`,
             {
               id: decoded.user._id,
               mangaName: name

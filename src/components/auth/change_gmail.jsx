@@ -7,7 +7,7 @@ function Change_gmail() {
   const [password_2, setPassword_2] = useState("");
 
   const handleReset = () => {
-    console.log("Logging in with", password_old, password_1, password_2);
+    console.log("Logging in with", password_1, password_2);
   };
 
   const handleForgotClick = () => {

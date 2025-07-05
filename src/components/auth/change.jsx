@@ -35,6 +35,7 @@ function Change() {
                 }
             )
             alert(res.data);
+            window.location.href = '/'
         }
         catch (err) {
             if (err.response && err.response.data) {

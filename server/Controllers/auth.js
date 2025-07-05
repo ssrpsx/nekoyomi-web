@@ -107,7 +107,7 @@ export const change = async (req, res) => {
                 { password: hashedPassword }
             );
 
-            return res.status(400).send("Your password has been changed successfully.")
+            return res.status(200).send("Your password has been changed successfully.")
         }
         else {
             return res.status(400).send("User not found!!!")
@@ -116,5 +116,14 @@ export const change = async (req, res) => {
     catch (err) {
         console.log(err)
         res.status(500).send("Server Error")
+    }
+}
+
+export const change_gmail = async (req, res) => {
+    const { email } = req.body
+
+    try {
+        const user = User.findOne({ email })
+        if (!user) return res.status(404).send("User not found")
     }
 }

@@ -16,7 +16,7 @@ function menu_list() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE.API}/anime/${category}/${page}`)
+      const res = await axios.get(`${import.meta.env.VITE_API}/anime/${category}/${page}`)
       setData(res.data.shows)
 
       if (category === 'favorites') return setlastPage(1)
@@ -33,7 +33,7 @@ function menu_list() {
       if (!token) return;
 
       const decoded = jwtDecode(token);
-      const res = await axios.get(`${import.meta.env.VITE.API}/anime/favorite/` + decoded.user._id, {
+      const res = await axios.get(`${import.meta.env.VITE_API}/anime/favorite/` + decoded.user._id, {
         headers: {
           authtoken: token
         }
@@ -70,7 +70,6 @@ function menu_list() {
 
   useEffect(() => {
     loadData()
-    console.log(import.meta.env.VITE_API);
     
     if (category === "favorites") {
       loadFavorites()
