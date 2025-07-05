@@ -93,7 +93,7 @@ function SignUp() {
                 return;
             }
 
-            const res = await axios.post(import.meta.env.VITE_API + "/api/register", {
+            const res = await axios.post(`${import.meta.env.VITE_API}/api/register`, {
                 gmail: gmail,
                 username: username,
                 password: password,

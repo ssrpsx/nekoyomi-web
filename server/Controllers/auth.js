@@ -8,6 +8,7 @@ export const register = async (req, res) => {
         const { gmail, username, password } = req.body
 
         const userByGmail = await User.findOne({ gmail });
+
         const userByUsername = await User.findOne({ username });
 
         if (!gmail || !username || !password) {
@@ -27,9 +28,10 @@ export const register = async (req, res) => {
 
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt);
+        const emailNormalized = gmail.trim().toLowerCase();
 
         const user = new User({
-            gmail,
+            emailNormalized,
             username,
             password: hashedPassword
         });
@@ -80,8 +82,6 @@ export const login = async (req, res) => {
 
 export const change = async (req, res) => {
     try {
-        console.log("dada")
-
         const { username, password_old, password_1, password_2 } = req.body
         var user = await User.findOne({ username })
 
@@ -125,10 +125,18 @@ export const change_gmail = async (req, res) => {
         const { email } = req.body;
         const emailNormalized = email.trim().toLowerCase();
 
-        const user = User.findOne({ email: emailNormalized });
+        const user = await User.findOne({ gmail: emailNormalized });
         if (!user) return res.status(404).send("User not found");
 
-        const token = jwt.sign({ id: user._id }, 'jwtsecret', { expiresIn: '15m' });
+        const payload = {
+            user: {
+                _id: user._id,
+                gmail: user.gmail,
+                username: user.username
+            }
+        };
+
+        const token = jwt.sign(payload, 'jwtsecret', { expiresIn: '15m' });
         const resetLink = `${process.env.LOCAL_LINK}/AuthChangeGmail/${token}`;
 
         const transporter = nodemailer.createTransport({
@@ -183,3 +191,41 @@ export const change_gmail = async (req, res) => {
         res.status(500).send("Server error");
     }
 };
+
+export const check_gmail = async (req, res) => {
+    try {
+        const token = req.params.token
+        const { password_1, password_2 } = req.body
+        const decoded = jwt.decode(token)
+
+        const user = await User.findOne({ _id: decoded.user._id });
+
+        if (user) {
+            if (password_1 !== password_2) {
+                return res.status(400).send("New passwords do not match.")
+            }
+
+            if (password_1.length < 6) {
+                return res.status(400).send("Password must be at least 6 characters.")
+            }
+
+            const salt = await bcrypt.genSalt(10)
+            const hashedPassword = await bcrypt.hash(password_1, salt);
+
+            await User.findOneAndUpdate(
+                { username: user.username },
+                { $set: { password: hashedPassword } },
+                { new: true }
+            );
+
+            return res.status(200).send("Your password has been changed successfully.")
+        }
+        else {
+            return res.status(400).send("User not found!!!")
+        }
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+}

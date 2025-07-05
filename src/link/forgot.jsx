@@ -41,7 +41,14 @@ function ForgotPassword() {
         if (issend || !gmail) return;
 
         try {
+            if (!gmail.includes("@") || !gmail.includes(".")) {
+                alert("Please enter a valid Gmail address.");
+                return;
+            }
 
+            axios.post(`${import.meta.env.VITE_API}/api/changeGmail`, {
+                email: gmail
+            })
         }
         catch (err) {
             if (err.response && err.response.data) {
