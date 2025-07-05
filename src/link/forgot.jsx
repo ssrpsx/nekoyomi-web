@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { IoIosSend } from 'react-icons/io';
 
 function ForgotPassword() {
     const [gmail, setGmail] = useState('');
     const [issend, setIssend] = useState(false);
-    const [timer, setTimer] = useState(60);
+    const [timer, setTimer] = useState(0);
 
     useEffect(() => {
         const start = localStorage.getItem('send_timer_start');
@@ -39,12 +40,25 @@ function ForgotPassword() {
     const handleSend = () => {
         if (issend || !gmail) return;
 
-        //code api
+        try {
+
+        }
+        catch (err) {
+            if (err.response && err.response.data) {
+                alert(err.response.data);
+            }
+            else {
+                alert("Something went wrong!");
+            }
+            window.location.reload();
+        }
 
         setIssend(true);
         setTimer(60);
         localStorage.setItem('send_timer_start', Date.now().toString());
     };
+
+    const isCooldownOver = !issend && timer === 0;
 
     return (
         <div className="flex justify-center items-center h-full my-[8vh]">
@@ -70,6 +84,7 @@ function ForgotPassword() {
                         <div
                             className={`absolute right-6 top-1/2 transform -translate-y-1/2 flex items-center gap-1 cursor-pointer dark:text-white ${issend ? 'opacity-60 pointer-events-none' : ''}`}
                             onClick={handleSend}
+                            disabled={!isCooldownOver || !gmail.trim()}
                         >
                             <IoIosSend className='text-xl' />
                             <span>{issend ? `${timer}s` : "send"}</span>

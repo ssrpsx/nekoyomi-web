@@ -18,8 +18,6 @@ function Change() {
                 return;
             }
 
-            console.log("Sending reset request for:", user);
-
             const res = await axios.post(
                 `${import.meta.env.VITE_API}/api/change`,
                 {
