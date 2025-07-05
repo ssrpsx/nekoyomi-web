@@ -69,8 +69,8 @@ function ForgotPassword() {
 
     return (
         <div className="flex justify-center items-center h-full my-[8vh]">
-            <div className="w-11/12 sm:w-2/5 bg-white px-8 py-6 sm:p-18 rounded shadow-sm border border-gray-900/10 h-full dark:bg-gray-800">
-                <h1 className='text-center text-2xl font-bold mb-8 dark:text-gray-200'>Forgot your password!</h1>
+            <div className="w-11/12 md:w-3/5 2xl:w-2/5 bg-white px-8 py-6 md:p-18 rounded shadow-sm border border-gray-900/10 h-full dark:bg-gray-800">
+                <h1 className='text-center text-2xl font-bold mb-8 dark:text-gray-200'>Forgot your password?</h1>
                 <h2 className='pl-3 text-left text-base font-bold text-gray-500 dark:text-gray-400'>
                     Send a link to your gmail address.
                 </h2>

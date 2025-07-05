@@ -84,7 +84,7 @@ function menu() {
     <div className='relative'>
       <div className='flex flex-col md:flex-row gap-4 md:gap-0 xl:gap-4 justify-center'>
 
-        <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[70%] 2xl:w-[50%] 2xl:pl-5 sm:pr-0'>
+        <div className='order-2 md:order-1 w-full p-5 pt-0 md:w-[70%] 2xl:w-[50%] 2xl:pl-5'>
           <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-900 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
             <h1 className='font-kanit text-white text-xl font-medium text-center'>
               มังฮวา & มังงะ อัพเดทใหม่ล่าสุด
