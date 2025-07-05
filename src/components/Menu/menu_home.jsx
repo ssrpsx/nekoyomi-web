@@ -87,7 +87,7 @@ function menu_home() {
 
     return (
         <div className='flex flex-col md:flex-row gap-4 justify-center pt-6'>
-            <div className='w-full p-5 pt-0 md:w-[75%] lg:w-[50%] sm:pl-5 sm:pr-0'>
+            <div className='w-full p-5 pt-0 md:w-[75%] xl:w-[50%] sm:pl-5 sm:pr-0'>
                 <div className='p-5 pl-2 bg-[#33333a] dark:bg-gray-800 rounded-lg rounded-bl-none rounded-br-none shadow-[1px_4px_6px_rgba(0,0,0,0.6)]'>
                     <h1 className='font-kanit text-white text-xl font-medium text-left pl-4'>
                         {title.replaceAll('-', ' ')}
