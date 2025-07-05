@@ -25,7 +25,7 @@ function App() {
         <Route path='/anime/:title/page/home' element={<Menu />}/>
         <Route path='/anime/:title/page/:episode' element={<Episode />}/>
         <Route path='/AuthChange' element={<Change />}/>
-        <Route path='/AuthChangeGmail' element={<Change_gmail />}/>
+        <Route path='/AuthChangeGmail/:token' element={<Change_gmail />}/>
       </Routes>
       <About />
     </BrowserRouter>

@@ -1,6 +1,7 @@
 import User from '../Models/auth.js'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import nodemailer from 'nodemailer'
 
 export const register = async (req, res) => {
     try {
@@ -120,10 +121,65 @@ export const change = async (req, res) => {
 }
 
 export const change_gmail = async (req, res) => {
-    const { email } = req.body
-
     try {
-        const user = User.findOne({ email })
-        if (!user) return res.status(404).send("User not found")
+        const { email } = req.body;
+        const emailNormalized = email.trim().toLowerCase();
+
+        const user = User.findOne({ email: emailNormalized });
+        if (!user) return res.status(404).send("User not found");
+
+        const token = jwt.sign({ id: user._id }, 'jwtsecret', { expiresIn: '15m' });
+        const resetLink = `${process.env.LOCAL_LINK}/AuthChangeGmail/${token}`;
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: emailNormalized,
+            subject: 'NekoYomi : Reset your password',
+            html: `
+                  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px; background-color: #f9f9f9;">
+                    <p style="font-size: 16px; color: #555;">
+                      We received a request to change the email associated with your NekoYomi account.
+                      If you made this request, please click the button below to proceed.
+                    </p>
+                    <div style="text-align: center; margin: 30px 0;">
+                      <a href="${resetLink}" 
+                         style="
+                           background-color: #4CAF50; 
+                           color: white; 
+                           padding: 14px 28px; 
+                           text-decoration: none; 
+                           border-radius: 6px; 
+                           font-weight: bold;
+                           display: inline-block;
+                         ">
+                        Change Email Address
+                      </a>
+                    </div>
+                    <p style="font-size: 14px; color: #777;">
+                      This link is valid for 15 minutes only. If you did not request this change, please ignore this email.
+                    </p>
+                    <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;" />
+                    <p style="font-size: 12px; color: #aaa; text-align: center;">
+                      © 2025 NekoYomi. All rights reserved.
+                    </p>
+                  </div>
+                `
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).send("Reset link sent");
     }
-}
+    catch (err) {
+        console.error(err);
+        res.status(500).send("Server error");
+    }
+};
