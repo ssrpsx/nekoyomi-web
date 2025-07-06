@@ -47,7 +47,7 @@ function ForgotPassword() {
             }
 
             axios.post(`${import.meta.env.VITE_API}/api/changeGmail`, {
-                email: gmail
+                email: gmail.trim().toLowerCase()
             })
         }
         catch (err) {

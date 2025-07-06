@@ -7,10 +7,12 @@ import nodemailer from 'nodemailer'
 export const register = async (req, res) => {
     try {
         const { gmail, username, password } = req.body
+        const gmailNormalized = gmail.trim().toLowerCase();
+        const usernameNormalized = username.trim().toLowerCase();
 
-        const userByGmail = await User.findOne({ gmail });
 
-        const userByUsername = await User.findOne({ username });
+        const userByGmail = await User.findOne({ gmail: gmailNormalized });
+        const userByUsername = await User.findOne({ username: usernameNormalized });
 
         if (!gmail || !username || !password) {
             return res.status(400).send("Missing required fields.");
@@ -29,11 +31,10 @@ export const register = async (req, res) => {
 
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt);
-        const emailNormalized = gmail.trim().toLowerCase();
 
         const user = new User({
-            emailNormalized,
-            username,
+            gmail: gmailNormalized,
+            username: usernameNormalized,
             password: hashedPassword
         });
 
@@ -49,7 +50,9 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { username, password } = req.body
-        var user = await User.findOneAndUpdate({ username }, { new: true })
+        const usernameNormalized = username.trim().toLowerCase();
+
+        var user = await User.findOneAndUpdate({ username: usernameNormalized }, { new: true })
 
         if (user) {
             const isMatch = await bcrypt.compare(password, user.password)
