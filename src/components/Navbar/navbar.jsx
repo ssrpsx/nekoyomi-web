@@ -160,7 +160,7 @@ function navbar() {
                   <span className="ml-2 text-[#4E71FF] group-hover:text-blue-300 text-sm uppercase">{user}</span>
                 </button>
 
-                <ul className={`md:absolute text-center left-0 top-full lg:hidden group-hover:block md:bg-gray-700 w-full shadow-md ${ismenuUser ? '' : 'hidden'}`}>
+                <ul className={`md:absolute text-center left-0 top-full xl:hidden group-hover:block md:bg-gray-700 w-full shadow-md ${ismenuUser ? '' : 'hidden'}`}>
                   <li className="p-4 hover:bg-gray-600 cursor-pointer text-white">
                     <a href="/favorites/1">
                       รายการโปรด
