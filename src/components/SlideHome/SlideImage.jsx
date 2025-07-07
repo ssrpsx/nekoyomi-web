@@ -83,7 +83,7 @@ const settings = {
     dots: true,
     arrows: false,
     infinite: true,
-    speed: 4000,
+    speed: 2500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
