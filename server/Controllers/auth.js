@@ -155,35 +155,33 @@ export const change_gmail = async (req, res) => {
             from: process.env.EMAIL_USER,
             to: emailNormalized,
             subject: 'NekoYomi : Reset your password',
-            html: `
-                  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px; background-color: #f9f9f9;">
-                    <p style="font-size: 16px; color: #555;">
-                      We received a request to change the email associated with your NekoYomi account.
-                      If you made this request, please click the button below to proceed.
-                    </p>
-                    <div style="text-align: center; margin: 30px 0;">
-                      <a href="${resetLink}" 
-                         style="
-                           background-color: #4CAF50; 
-                           color: white; 
-                           padding: 14px 28px; 
-                           text-decoration: none; 
-                           border-radius: 6px; 
-                           font-weight: bold;
-                           display: inline-block;
-                         ">
-                        Change Email Address
-                      </a>
-                    </div>
-                    <p style="font-size: 14px; color: #777;">
-                      This link is valid for 15 minutes only. If you did not request this change, please ignore this email.
-                    </p>
-                    <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;" />
-                    <p style="font-size: 12px; color: #aaa; text-align: center;">
-                      © 2025 NekoYomi. All rights reserved.
-                    </p>
-                  </div>
-                `
+            html: `<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #ffffff; padding: 24px; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px;">
+  <h2 style="color: #333333; text-align: center;">Reset Your Password</h2>
+
+  <p style="font-size: 15px; color: #555555;">
+    Hello,<br><br>
+    We received a request to reset the password for your NekoYomi account.<br>
+    If you made this request, please click the button below to set a new password.
+  </p>
+
+  <div style="text-align: center; margin: 32px 0;">
+    <a href="${resetLink}" 
+       style="background-color: #4CAF50; color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; display: inline-block;">
+      Reset Password
+    </a>
+  </div>
+
+  <p style="font-size: 14px; color: #777777;">
+    This link is valid for 15 minutes only. If you did not request a password reset, please ignore this email.
+  </p>
+
+  <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 32px 0;" />
+
+  <p style="font-size: 12px; color: #aaaaaa; text-align: center;">
+    © 2025 NekoYomi. All rights reserved.
+  </p>
+</div>
+`
         };
 
         await transporter.sendMail(mailOptions);
