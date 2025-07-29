@@ -8,8 +8,8 @@
 </ul>
 
 <br>
----
 
+---
 ## 📚 About the Project
 
 This website is for reading Manga, Manhwa <br>
