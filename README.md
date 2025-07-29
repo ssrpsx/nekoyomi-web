@@ -11,11 +11,11 @@ This project was created to deepen my understanding of full-stack web developmen
 - Back-end : NodeJS + Express for API
 - DataBase : Mongodb
 
-### 📌 ON PC
+### 📌 SHOWCASE ON PC
 ---
 <img src="readme-img\OnPC.gif" alt="Desktop Portfolio">
 
-### 📌 ON Mobile
+### 📌 SHOWCASE ON Mobile
 ---
 <div align="center">
     <img src="readme-img\OnMobile.gif" alt="Mobile Trips" width="300px">
