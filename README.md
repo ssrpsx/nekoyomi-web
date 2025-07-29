@@ -4,6 +4,7 @@
 
 This website is created to enhance understanding and skills in web application development, using React, Node.js, Express, and Tailwind CSS as the primary tools. It aims to build a solid foundation in web development, which can later be applied and extended in combination with other skills in the future.
 
+<br><br>
 ---
 
 ### 📌 ON PC
