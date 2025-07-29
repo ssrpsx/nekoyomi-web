@@ -8,7 +8,7 @@ This project was created to deepen my understanding of full-stack web developmen
 ## 🛠️ Tech Stack
 
 - Front-end : React + Vite, TailwindCSS
-- Back-end : NodeJS + Express for API
+- Back-end : NodeJS + Express
 - DataBase : Mongodb
 
 ### 📌 SHOWCASE ON PC
