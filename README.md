@@ -1,6 +1,6 @@
 # Nekoyomi Website
 
-### 🛠️ Tech Stack
+## 🛠️ Tech Stack
 <ul>
   <li>Front-end : React + Vite, TailwindCSS</li>
   <li>Back-end : NodeJS + Express for API</li>
@@ -8,8 +8,9 @@
 </ul>
 
 <br>
+---
 
-### 📚 About the Project
+## 📚 About the Project
 
 This website is for reading Manga, Manhwa <br>
 This project was created to deepen my understanding of full-stack web development. By building Nekoyomi, I aimed to strengthen my skills in React, Node.js, Express, and Tailwind CSS. The experience gained from this project lays a strong foundation that can be expanded upon in future applications and more advanced technologies.
