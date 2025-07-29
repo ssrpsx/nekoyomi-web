@@ -1,8 +1,19 @@
+# Nekoyomi Website
 ## This website is for reading Manga, Manhwa
 
-# React + Vite
+# 🛠️ Tech Stack
+<ul>
+  <li>Front-end : React + Vite, TailwindCSS</li>
+  <li>Back-end : NodeJS + Express for API</li>
+  <li>DataBase : Mongodb</li>
+</ul>
 
-This website is created to enhance understanding and skills in web application development, using React, Node.js, Express, and Tailwind CSS as the primary tools. It aims to build a solid foundation in web development, which can later be applied and extended in combination with other skills in the future.
+<br>
+---
+
+📚 About the Project
+
+This project was created to deepen my understanding of full-stack web development. By building Nekoyomi, I aimed to strengthen my skills in React, Node.js, Express, and Tailwind CSS. The experience gained from this project lays a strong foundation that can be expanded upon in future applications and more advanced technologies.
 
 <br><br>
 ---
