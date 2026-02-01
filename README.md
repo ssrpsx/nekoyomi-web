@@ -14,13 +14,7 @@ This project was created to deepen my understanding of full-stack web developmen
 ### 📌 SHOWCASE ON PC
 ---
 <img src="readme-img\OnPC.gif" alt="Desktop Portfolio">
-
-### 📌 SHOWCASE ON Mobile
----
-<div align="center">
-    <img src="readme-img\OnMobile.gif" alt="Mobile Trips" width="300px">
-</div>
-
+    
 <br>
 
 ---
