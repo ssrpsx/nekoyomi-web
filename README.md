@@ -9,8 +9,7 @@ This project was created to deepen my understanding of full-stack web developmen
 - Back-end : NodeJS + Express
 - DataBase : Mongodb
 
-### PC Showcase (Responsive Supported)
----
+## PC Showcase (Responsive Supported)
 <img src="readme-img\OnPC.gif" alt="Desktop Portfolio">
     
 <br>
